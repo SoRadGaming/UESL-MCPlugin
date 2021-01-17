@@ -1,5 +1,6 @@
 package com.soradgaming.ueslmcplugin;
 
+import me.ryandw11.ultrachat.api.channels.ChatChannel;
 import net.raidstone.wgevents.events.RegionEnteredEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -16,9 +17,14 @@ public class WorldGaurdRegion extends JavaPlugin implements Listener {
         if (player == null) return;
 
         String regionName = event.getRegionName();
-        if(regionName.equalsIgnoreCase("jail"))
+        if(regionName !== null)
         {
-            player.sendMessage("You are now in jail !");
+            setPlayerChannel(player, regionName)
         }
     }
+
+    public void setPlayerChannel(org.bukkit.entity.Player player,ChatChannel channel){
+
+    }
+
 }
