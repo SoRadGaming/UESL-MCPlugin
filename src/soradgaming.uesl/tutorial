@@ -1,0 +1,15 @@
+package soradgaming.uesl;
+
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class Tutorial extends JavaPlugin {
+
+    public void onEnable() {
+        super.onEnalbe();
+        getLogger().info("Tutorial has been enabled");
+    }
+    public void onDisable() {
+        super.onDisable();
+        getLogger().info("Tutorial has been disabled");
+    }
+}

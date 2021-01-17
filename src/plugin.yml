@@ -1,0 +1,8 @@
+main: soradgaming.uesl.tutorial
+name: UESL-MCPlugin
+version: 0.0.1
+description: Plugin for the UESL Minecraft Server
+api-version: 1.16
+load: POSTWORLD
+author: SoRadGaming
+depend: []
