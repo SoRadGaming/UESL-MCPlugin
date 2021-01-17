@@ -1,0 +1,6 @@
+name: UESL MCPlugin
+version: ${project.version}
+main: com.soradgaming.ueslmcplugin.UESLMCPlugin
+api-version: 1.16
+authors: [ SoRadGaming ]
+description: Plugin for the Minecraft UESL Server
