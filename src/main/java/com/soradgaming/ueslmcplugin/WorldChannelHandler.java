@@ -1,25 +1,19 @@
 package com.soradgaming.ueslmcplugin;
 
-import net.raidstone.wgevents.events.RegionEnteredEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import java.lang.String;
 
-public class ChannelHandler extends JavaPlugin implements Listener {
+public class WorldChannelHandler extends JavaPlugin implements Listener {
 
-    @EventHandler
-    public void onRegionEntered(RegionEnteredEvent event) throws InterruptedException {
-        final Player player = event.getPlayer();
-        final String name = player.getName();
-        final String regionName = event.getRegionName();
-
-        changeChannel(name,regionName);
-        player.sendMessage("Test Message");
-
+    @Override
+    public void onEnable() {
+        PluginManager manager = getServer().getPluginManager();
+        manager.registerEvents(this, this);
     }
 
     @EventHandler
