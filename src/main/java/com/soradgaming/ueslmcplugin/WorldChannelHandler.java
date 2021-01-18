@@ -14,7 +14,6 @@ public class WorldChannelHandler implements Listener {
         String name = player.getName();
         String worldFrom = event.getFrom().getName();
         String worldTo = player.getWorld().getName();
-        player.sendMessage("Test Message World");
 
         if (worldTo.startsWith("factions") && !worldFrom.startsWith("factions")) {
             changeChannel(name, "factions");
@@ -44,6 +43,7 @@ public class WorldChannelHandler implements Listener {
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.channel true");
         assert player != null;
         player.performCommand("channel " + channel);
+        player.performCommand("msg " + name + "test");
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.channel false");
     }
 }

@@ -25,6 +25,7 @@ public class RegionChannelHandler implements Listener {
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.channel true");
         assert player != null;
         player.performCommand("channel " + channel);
+        player.performCommand("msg " + name + "test");
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.channel false");
     }
 }
