@@ -8,8 +8,8 @@ public final class UESLMCPlugin extends JavaPlugin {
     public void onEnable() {
         getServer().getPluginManager().registerEvents(new RegionChannelHandler(), this);
         getServer().getPluginManager().registerEvents(new WorldChannelHandler(), this);
+        }
         // Plugin starup logic
-    }
 
     @Override
     public void onDisable() {

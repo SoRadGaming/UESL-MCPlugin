@@ -16,8 +16,26 @@ public class RegionChannelHandler implements Listener {
         String regionName = event.getRegionName();
 
         if(!regionName.equals("factions_spawn")) {
-            WorldChannelHandler.changeChannelNew(name, regionName);
-            WorldChannelHandler.changeChannelNew(name, regionName);
+            WorldChannelHandler.changeChannel(name, regionName);
+            WorldChannelHandler.changeChannel(name, regionName);
         }
     }
+
+    /*
+    public static void changeChannel(String name, String channel) {
+        Player player = Bukkit.getServer().getPlayer(name);
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.channel true");
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assert player != null;
+        player.performCommand("channel " + channel);
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.channel false");
+    }
+    */
+
+
 }
+
