@@ -1,5 +1,7 @@
 package com.soradgaming.ueslmcplugin;
 
+import net.luckperms.api.model.user.User;
+import net.luckperms.api.node.Node;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -38,7 +40,7 @@ public class WorldChannelHandler implements Listener {
         }
     }
 
-    public void changeChannel(String name, String channel) {
+    public static void changeChannel(String name, String channel) {
         Player player = Bukkit.getServer().getPlayer(name);
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.channel true");
         try {
@@ -49,5 +51,18 @@ public class WorldChannelHandler implements Listener {
         assert player != null;
         player.performCommand("channel " + channel);
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.channel false");
+    }
+
+    public static void changeChannelNew (String name, String channel) {
+        Player player = Bukkit.getServer().getPlayer(name);
+        User user = (User) player;
+
+        assert user != null;
+        user.data().add(Node.builder("ultrachat.channel").build());
+
+        if (player.hasPermission("ultrachat.channel")) {
+            player.performCommand("channel " + channel);
+        }
+        user.data().remove(Node.builder("ultrachat.channel").build());
     }
 }
