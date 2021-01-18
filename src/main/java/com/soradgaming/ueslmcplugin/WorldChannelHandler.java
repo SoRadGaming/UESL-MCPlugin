@@ -9,12 +9,12 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 public class WorldChannelHandler implements Listener {
 
     @EventHandler
-    public void onWorldChange(PlayerChangedWorldEvent event) throws InterruptedException {
-        final Player player = event.getPlayer();
-        final String name = player.getName();
-        final String worldFrom = event.getFrom().getName();
-        final String worldTo = player.getWorld().getName();
-        player.sendMessage("Test Message");
+    public void onWorldChange(PlayerChangedWorldEvent event) {
+        Player player = event.getPlayer();
+        String name = player.getName();
+        String worldFrom = event.getFrom().getName();
+        String worldTo = player.getWorld().getName();
+        player.sendMessage("Test Message World");
 
         if (worldTo.startsWith("factions") && !worldFrom.startsWith("factions")) {
             changeChannel(name, "factions");
@@ -39,11 +39,9 @@ public class WorldChannelHandler implements Listener {
         }
     }
 
-    private void changeChannel(String player, String channel) throws InterruptedException {
+    public void changeChannel(String player, String channel) {
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player + " permission set ultrachat.channel true");
-        wait(1);
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "channel " + channel);
-        wait(1);
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "sudo" + player + " /channel " + channel);
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player + " permission set ultrachat.channel false");
     }
 }

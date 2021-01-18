@@ -10,20 +10,18 @@ import java.lang.String;
 public class RegionChannelHandler implements Listener {
 
     @EventHandler
-    public void onRegionEntered(RegionEnteredEvent event) throws InterruptedException {
-        final Player player = event.getPlayer();
-        final String name = player.getName();
-        final String regionName = event.getRegionName();
+    public void onRegionEntered(RegionEnteredEvent event) {
+        Player player = event.getPlayer();
+        String name = player.getName();
+        String regionName = event.getRegionName();
 
         changeChannel(name, regionName);
-        player.sendMessage("Test Message");
+        player.sendMessage("Test Message Region");
     }
 
-    private void changeChannel(String player, String channel) throws InterruptedException {
+    public void changeChannel(String player, String channel) {
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player + " permission set ultrachat.channel true");
-        wait(1);
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "channel " + channel);
-        wait(1);
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "sudo" + player + " /channel " + channel);
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player + " permission set ultrachat.channel false");
     }
 }
