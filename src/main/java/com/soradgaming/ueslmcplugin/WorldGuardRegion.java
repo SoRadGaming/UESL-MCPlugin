@@ -8,7 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.lang.String;
 
-public class WorldGaurdRegion extends JavaPlugin implements Listener {
+public class WorldGuardRegion extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onRegionEntered(RegionEnteredEvent event)
