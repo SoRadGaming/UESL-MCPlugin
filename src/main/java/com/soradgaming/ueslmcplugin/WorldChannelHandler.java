@@ -5,16 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
 
-public class WorldChannelHandler extends JavaPlugin implements Listener {
-
-    @Override
-    public void onEnable() {
-        PluginManager manager = getServer().getPluginManager();
-        manager.registerEvents(this, this);
-    }
+public class WorldChannelHandler implements Listener {
 
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) throws InterruptedException {
@@ -47,7 +39,7 @@ public class WorldChannelHandler extends JavaPlugin implements Listener {
         }
     }
 
-    public void changeChannel(String player, String channel) throws InterruptedException {
+    private void changeChannel(String player, String channel) throws InterruptedException {
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player + " permission set ultrachat.channel true");
         wait(1);
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "channel " + channel);
