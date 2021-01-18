@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class WorldChannelHandler implements Listener {
 
@@ -18,6 +17,7 @@ public class WorldChannelHandler implements Listener {
 
         if (worldTo.startsWith("factions") && !worldFrom.startsWith("factions")) {
             changeChannel(name, "factions");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.chat.factions true");
         } else if (worldTo.equals("Creative")) {
             changeChannel(name, "creative");
         } else if (worldTo.startsWith("survival") && !worldFrom.startsWith("survival")) {
@@ -30,6 +30,12 @@ public class WorldChannelHandler implements Listener {
             changeChannel(name, "PlanetParkour");
         } else if (worldTo.equals("ParkourParadise")) {
             changeChannel(name, "ParkourParadise");
+        }
+
+        if (worldTo.startsWith("factions") && !worldFrom.startsWith("factions")) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.chat.factions true");
+        } else {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.chat.factions false");
         }
     }
 
