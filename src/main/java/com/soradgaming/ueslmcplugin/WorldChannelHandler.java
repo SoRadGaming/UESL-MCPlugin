@@ -31,12 +31,6 @@ public class WorldChannelHandler implements Listener {
         } else if (worldTo.equals("ParkourParadise")) {
             changeChannel(name, "ParkourParadise");
         }
-
-        if (worldTo.startsWith("factions") && !worldFrom.startsWith("factions")) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.chat.factions true");
-        } else {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.chat.factions false");
-        }
     }
 
     public static void changeChannel(String name, String channel) {
