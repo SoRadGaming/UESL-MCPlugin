@@ -14,7 +14,7 @@ public class ChannelHandler extends JavaPlugin implements Listener {
     @EventHandler
     public void onRegionEntered(RegionEnteredEvent event) throws InterruptedException {
         final Player player = event.getPlayer();
-        final String name = player.getDisplayName();
+        final String name = player.getName();
         final String regionName = event.getRegionName();
 
         changeChannel(name,regionName);
@@ -28,20 +28,21 @@ public class ChannelHandler extends JavaPlugin implements Listener {
         final String name = player.getDisplayName();
         final String world = player.getWorld().toString();
         final String from = event.getFrom().toString();
+        player.sendMessage("Test Message");
 
-        if (world.startsWith("factions")) {
+        if (world.startsWith("factions") && !from.startsWith("factions")) {
             changeChannel(name, "factions");
         }
         else if (world.equals("Creative")) {
             changeChannel(name, "creative");
         }
-        else if (world.startsWith("survival")) {
+        else if (world.startsWith("survival") && !from.startsWith("survival")) {
             changeChannel(name, "survival");
         }
         else if (world.equals("Breeze2")) {
             changeChannel(name, "Breeze2");
         }
-        else if (world.startsWith("IridiumSkyblock")) {
+        else if (world.startsWith("IridiumSkyblock") && !from.startsWith("IridiumSkyblock")) {
             changeChannel(name, "IridiumSkyblock");
         }
         else if (world.equals("PlanetParkour")) {
