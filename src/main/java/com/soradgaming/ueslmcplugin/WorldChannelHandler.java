@@ -30,6 +30,8 @@ public class WorldChannelHandler implements Listener {
             changeChannel(name, "PlanetParkour");
         } else if (worldTo.equals("ParkourParadise")) {
             changeChannel(name, "ParkourParadise");
+        } else {
+            return;
         }
     }
 
