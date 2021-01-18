@@ -25,4 +25,3 @@ public class WorldChangeChannel extends JavaPlugin implements Listener {
     }
 
 }
-
