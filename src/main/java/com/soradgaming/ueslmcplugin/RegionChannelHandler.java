@@ -23,7 +23,7 @@ public class RegionChannelHandler extends JavaPlugin implements Listener {
         final String name = player.getName();
         final String regionName = event.getRegionName();
 
-        changeChannel(name,regionName);
+        changeChannel(name, regionName);
         player.sendMessage("Test Message");
     }
 

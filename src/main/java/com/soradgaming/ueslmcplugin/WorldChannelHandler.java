@@ -19,30 +19,30 @@ public class WorldChannelHandler extends JavaPlugin implements Listener {
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) throws InterruptedException {
         final Player player = event.getPlayer();
-        final String name = player.getDisplayName();
-        final String world = player.getWorld().toString();
-        final String from = event.getFrom().toString();
+        final String name = player.getName();
+        final String worldFrom = event.getFrom().getName();
+        final String worldTo = player.getWorld().getName();
         player.sendMessage("Test Message");
 
-        if (world.startsWith("factions") && !from.startsWith("factions")) {
+        if (worldTo.startsWith("factions") && !worldFrom.startsWith("factions")) {
             changeChannel(name, "factions");
         }
-        else if (world.equals("Creative")) {
+        else if (worldTo.equals("Creative")) {
             changeChannel(name, "creative");
         }
-        else if (world.startsWith("survival") && !from.startsWith("survival")) {
+        else if (worldTo.startsWith("survival") && !worldFrom.startsWith("survival")) {
             changeChannel(name, "survival");
         }
-        else if (world.equals("Breeze2")) {
+        else if (worldTo.equals("Breeze2")) {
             changeChannel(name, "Breeze2");
         }
-        else if (world.startsWith("IridiumSkyblock") && !from.startsWith("IridiumSkyblock")) {
+        else if (worldTo.startsWith("IridiumSkyblock") && !worldFrom.startsWith("IridiumSkyblock")) {
             changeChannel(name, "IridiumSkyblock");
         }
-        else if (world.equals("PlanetParkour")) {
+        else if (worldTo.equals("PlanetParkour")) {
             changeChannel(name, "PlanetParkour");
         }
-        else if (world.equals("ParkourParadise")) {
+        else if (worldTo.equals("ParkourParadise")) {
             changeChannel(name, "ParkourParadise");
         }
     }
