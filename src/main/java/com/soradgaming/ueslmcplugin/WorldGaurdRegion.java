@@ -1,12 +1,12 @@
 package com.soradgaming.ueslmcplugin;
 
-import me.ryandw11.ultrachat.api.channels.ChatChannel;
 import net.raidstone.wgevents.events.RegionEnteredEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import java.lang.String;
 
 public class WorldGaurdRegion extends JavaPlugin implements Listener {
 
@@ -17,14 +17,10 @@ public class WorldGaurdRegion extends JavaPlugin implements Listener {
         if (player == null) return;
 
         String regionName = event.getRegionName();
-        if(regionName !== null)
-        {
-            setPlayerChannel(player, regionName)
+        if(!regionName.contains("factions") && !regionName.contains("survival") && !regionName.contains("Creative") && !regionName.contains("IridiumSkyblock") && !regionName.contains("PlanetParkour") && !regionName.contains("ParkourParadise") && !regionName.contains("Breeze2")) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.getName() + " permission set ultrachat.channel true");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "channel " + regionName);
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player.getName() + " permission set ultrachat.channel false");
         }
     }
-
-    public void setPlayerChannel(org.bukkit.entity.Player player,ChatChannel channel){
-
-    }
-
 }
