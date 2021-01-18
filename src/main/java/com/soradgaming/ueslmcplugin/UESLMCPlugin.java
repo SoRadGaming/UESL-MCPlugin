@@ -1,5 +1,6 @@
 package com.soradgaming.ueslmcplugin;
 
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class UESLMCPlugin extends JavaPlugin {
