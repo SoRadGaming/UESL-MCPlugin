@@ -23,7 +23,7 @@ public class RegionChannelHandler implements Listener {
         Player player = Bukkit.getServer().getPlayer(name);
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.channel true");
         try {
-            Thread.sleep(1000);
+            Thread.sleep(10);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
