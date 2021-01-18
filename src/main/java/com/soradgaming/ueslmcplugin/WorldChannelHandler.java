@@ -39,9 +39,11 @@ public class WorldChannelHandler implements Listener {
         }
     }
 
-    public void changeChannel(String player, String channel) {
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player + " permission set ultrachat.channel true");
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "sudo" + player + " /channel " + channel);
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + player + " permission set ultrachat.channel false");
+    public void changeChannel(String name, String channel) {
+        Player player = Bukkit.getServer().getPlayer(name);
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.channel true");
+        assert player != null;
+        player.performCommand("channel " + channel);
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.channel false");
     }
 }
