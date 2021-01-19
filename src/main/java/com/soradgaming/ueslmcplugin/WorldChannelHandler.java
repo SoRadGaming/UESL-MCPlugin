@@ -5,16 +5,13 @@ import me.ryandw11.ultrachat.api.channels.ChatChannel;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
-
-import java.nio.channels.Channel;
 
 public class WorldChannelHandler implements Listener {
     public static UltraChatAPI chat = new UltraChatAPI();
 
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
         String name = player.getName();
@@ -35,8 +32,6 @@ public class WorldChannelHandler implements Listener {
             changeChannel(name, "PlanetParkour");
         } else if (worldTo.equals("ParkourParadise")) {
             changeChannel(name, "ParkourParadise");
-        } else {
-            return;
         }
     }
     /*
@@ -61,8 +56,8 @@ public class WorldChannelHandler implements Listener {
 
     public static void changeChannel(String name, String channel) {
         Player player = Bukkit.getServer().getPlayer(name);
-        Channel c = (Channel) chat.getChannelManager().getChannelByName(channel);
-        chat.getChannelManager().setPlayerChannel(player, (ChatChannel) c);
+        ChatChannel c = chat.getChannelManager().getChannelByName(channel);
+        chat.getChannelManager().setPlayerChannel(player, c);
     }
 
 }

@@ -6,15 +6,13 @@ import net.raidstone.wgevents.events.RegionEnteredEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import java.lang.String;
-import java.nio.channels.Channel;
 
 public class RegionChannelHandler implements Listener {
     public static UltraChatAPI chat = new UltraChatAPI();
 
-    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    @EventHandler
     public void onRegionEntered(RegionEnteredEvent event) {
         Player player = event.getPlayer();
         assert player != null;
@@ -28,8 +26,8 @@ public class RegionChannelHandler implements Listener {
 
     public static void changeChannel(String name, String channel) {
         Player player = Bukkit.getServer().getPlayer(name);
-        Channel c = (Channel) chat.getChannelManager().getChannelByName(channel);
-        chat.getChannelManager().setPlayerChannel(player, (ChatChannel) c);
+        ChatChannel c = chat.getChannelManager().getChannelByName(channel);
+        chat.getChannelManager().setPlayerChannel(player, c);
     }
 }
 
