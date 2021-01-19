@@ -4,4 +4,4 @@ main: com.soradgaming.ueslmcplugin.UESLMCPlugin
 api-version: 1.16
 authors: [ SoRadGaming ]
 description: Plugin for the UESL Minecraft Server
-depend: [WorldGuardEvents]
+depend: [WorldGuardEvents, WorldGuard, UltraChat]

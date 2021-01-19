@@ -1,14 +1,20 @@
 package com.soradgaming.ueslmcplugin;
 
+import me.ryandw11.ultrachat.api.UltraChatAPI;
+import me.ryandw11.ultrachat.api.channels.ChatChannel;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 
-public class WorldChannelHandler implements Listener {
+import java.nio.channels.Channel;
 
-    @EventHandler
+public class WorldChannelHandler implements Listener {
+    public static UltraChatAPI chat = new UltraChatAPI();
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
         String name = player.getName();
@@ -17,7 +23,6 @@ public class WorldChannelHandler implements Listener {
 
         if (worldTo.startsWith("factions") && !worldFrom.startsWith("factions")) {
             changeChannel(name, "factions");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.chat.factions true");
         } else if (worldTo.equals("Creative")) {
             changeChannel(name, "creative");
         } else if (worldTo.startsWith("survival") && !worldFrom.startsWith("survival")) {
@@ -34,7 +39,7 @@ public class WorldChannelHandler implements Listener {
             return;
         }
     }
-
+    /*
     public static void changeChannel(String name, String channel) {
         Player player = Bukkit.getServer().getPlayer(name);
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.channel true");
@@ -52,4 +57,12 @@ public class WorldChannelHandler implements Listener {
         }
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + name + " permission set ultrachat.channel false");
     }
+    */
+
+    public static void changeChannel(String name, String channel) {
+        Player player = Bukkit.getServer().getPlayer(name);
+        Channel c = (Channel) chat.getChannelManager().getChannelByName(channel);
+        chat.getChannelManager().setPlayerChannel(player, (ChatChannel) c);
+    }
+
 }
