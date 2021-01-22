@@ -26,7 +26,7 @@ public class WorldChannelHandler implements Listener {
             changeChannel(name, "survival");
         } else if (worldTo.equals("Breeze2")) {
             changeChannel(name, "Breeze2");
-        } else if (worldTo.startsWith("IridiumSkyblock") && !worldFrom.startsWith("IridiumSkyblock")) {
+        } else if ((worldTo.startsWith("IridiumSkyblock") && !worldFrom.startsWith("IridiumSkyblock") && !worldFrom.equals("SkyblockHub")) || (worldTo.equals("SkyblockHub") && !worldFrom.startsWith("IridiumSkyblock"))) {
             changeChannel(name, "IridiumSkyblock");
         } else if (worldTo.equals("PlanetParkour")) {
             changeChannel(name, "PlanetParkour");
