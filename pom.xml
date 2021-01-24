@@ -6,7 +6,7 @@
 
     <groupId>com.soradgaming</groupId>
     <artifactId>UESL-MCPlugin</artifactId>
-    <version>1.4.2</version>
+    <version>1.4.5</version>
     <packaging>jar</packaging>
 
     <name>UESL MCPlugin</name>
