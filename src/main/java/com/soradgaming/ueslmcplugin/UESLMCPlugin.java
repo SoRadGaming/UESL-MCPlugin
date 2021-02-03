@@ -4,6 +4,7 @@ import com.soradgaming.ueslmcplugin.Commands.ConditionalEvents;
 import com.soradgaming.ueslmcplugin.Handler.RegionChannel;
 import com.soradgaming.ueslmcplugin.Handler.WorldChannel;
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class UESLMCPlugin extends JavaPlugin {
@@ -29,6 +30,14 @@ public final class UESLMCPlugin extends JavaPlugin {
         } else {
             throw new RuntimeException("Could not find WorldGuardEvents! Plugin can not work without it!");
         }
+
+        Plugin parkour = getServer().getPluginManager().getPlugin("Parkour");
+        if (parkour != null && parkour.isEnabled()) {
+            System.out.println("Found Parkour v" + parkour.getDescription().getVersion());
+        } else {
+            throw new RuntimeException("Could not find Parkour! Plugin can not work without it!");
+        }
+
         //EventHandler
         getServer().getPluginManager().registerEvents(new WorldChannel(), this);
         getServer().getPluginManager().registerEvents(new ConditionalEvents(), this);

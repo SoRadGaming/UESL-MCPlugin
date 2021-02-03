@@ -1,7 +1,9 @@
 package com.soradgaming.ueslmcplugin.Commands;
 
+import io.github.a5h73y.parkour.event.PlayerFinishCourseEvent;
 import net.raidstone.wgevents.events.RegionEnteredEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,8 +13,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import java.lang.String;
 
 //Conditional Events
-
-public class ConditionalEvents implements Listener {
+public class ConditionalEvents implements Listener  {
 
     //Event WorldGuard Region Enter
     @EventHandler
@@ -44,8 +45,18 @@ public class ConditionalEvents implements Listener {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "warp secrethub " + p);
         }
         //ParkourParadise Portal
-        if (regionName.equals("ParkourParadise_Portal")) {
+        if (regionName.equals("parkourparadise_portal")) {
             player.performCommand("pa join parkourparadise");
+        }
+        //Planet Parkour End
+        if (regionName.equals("planetparkour_end")) {
+            if (player.hasPermission("planetparkour.OneTime") == true) {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "procosmetics give coins " + p + " 250");
+                player.sendMessage("You have won $500,000 for completing PlanetParkour!");
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "eco give " + p + " 500000");
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&',"You have won 250 &eUESL Points&r for completing PlanetParkour!"));
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p + " permission unset planetparkour.OneTime");
+            } else player.sendMessage("You have already claimed this prize before!");
         }
     }
 
@@ -60,4 +71,21 @@ public class ConditionalEvents implements Listener {
             }
         }
     }
+
+    @EventHandler
+    public void onCourseCompletion(PlayerFinishCourseEvent event) {
+        String completedCourse = event.getCourseName();
+        Player player = event.getPlayer();
+        String p = event.getPlayer().getDisplayName();
+
+        //Parkour Paradise End
+        if (completedCourse.equals("parkourparadise")) {
+            player.sendMessage("You completed " + completedCourse);
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "procosmetics give coins " + p + " 250");
+            player.sendMessage("You have won $500,000 for completing ParkourParadise!");
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "eco give " + p + " 500000");
+            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "You have won 250 &eUESL Points&r for completing ParkourParadise!"));
+        } else player.sendMessage("You have already claimed this prize before!");
+    }
+
 }
