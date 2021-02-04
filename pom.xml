@@ -6,7 +6,7 @@
 
     <groupId>com.soradgaming</groupId>
     <artifactId>UESL-MCPlugin</artifactId>
-    <version>1.5.0</version>
+    <version>1.5.5</version>
     <packaging>jar</packaging>
 
     <name>UESL MCPlugin</name>
@@ -70,10 +70,6 @@
             <id>Ryandw11-Spigot</id>
             <url>https://repo.ryandw11.com/repository/Spigot-Plugins/</url>
         </repository>
-        <repository>
-            <id>a5h73y-repo</id>
-            <url>https://dl.bintray.com/a5h73y/repo/</url>
-        </repository>
     </repositories>
 
     <dependencies>
@@ -99,13 +95,6 @@
             <groupId>me.ryandw11</groupId>
             <artifactId>UltraChat</artifactId>
             <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.github.a5h73y</groupId>
-            <artifactId>Parkour</artifactId>
-            <version>6.3</version>
-            <type>jar</type>
             <scope>provided</scope>
         </dependency>
     </dependencies>
