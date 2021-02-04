@@ -31,7 +31,8 @@ public class ConditionalEvents implements Listener  {
         }
         //Skyblock_Death_Loop_Fix
         if (regionName.equals("skyblock_death_box")) {
-            player.performCommand("is home"); // event not activated on respawn
+            player.performCommand("is home");
+            player.sendMessage("deathj loop command");// event not activated on respawn
         }
         //Dues Gamemode
         if (regionName.equals("duels_arena")) {
@@ -42,7 +43,7 @@ public class ConditionalEvents implements Listener  {
         //SecretHub Parkour Finish
         if (regionName.equals("shub_portal")) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p + " permission set essentials.warps.secrethub true");
-            player.sendTitle("Congratulations" + ChatColor.BLUE + ChatColor.BOLD, "", 10, 70, 20);
+            player.sendTitle(ChatColor.BLUE + "" + ChatColor.BOLD + "Congratulations", "", 10, 70, 20);
             player.sendMessage("Use /shub to get here in the future");
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "warp secrethub " + p);
         }
@@ -54,12 +55,12 @@ public class ConditionalEvents implements Listener  {
         if (regionName.equals("planetparkour_end")) {
             if(!planetparkour_completed.contains(player)){
                 planetparkour_completed.add(player);
-                player.sendTitle("Congratulations" + ChatColor.BLUE + ChatColor.BOLD, "", 10, 70, 20);
+                player.sendTitle( ChatColor.BLUE + "" + ChatColor.BOLD + "Congratulations", "", 10, 70, 20);
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "procosmetics give coins " + p + " 250");
                 player.sendMessage("You have won $500,000 for completing PlanetParkour!");
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "eco give " + p + " 500000");
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&',"You have won 250 &eUESL Points&r for completing PlanetParkour!"));
-            } else player.sendMessage("You have already claimed this prize before!");
+            } else player.sendMessage("You have already claimed this prize!");
         }
         //Parkour Paradise End
         if (regionName.equals("parkourparadise_end")) {
@@ -70,7 +71,7 @@ public class ConditionalEvents implements Listener  {
                 player.sendMessage("You have won $500,000 for completing ParkourParadise!");
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "eco give " + p + " 500000");
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "You have won 250 &eUESL Points&r for completing ParkourParadise!"));
-            } else player.sendMessage("You have already claimed this prize before!");
+            } else player.sendMessage("You have already claimed this prize!");
         }
     }
 
@@ -81,7 +82,10 @@ public class ConditionalEvents implements Listener  {
 
         if (world.equals("IridiumSkyblock_nether") || world.equals("IridiumSkyblock")) {
             if (event.isBedSpawn() || event.isAnchorSpawn()) {
-            } else player.performCommand("is home");
+            } else {
+                player.performCommand("is home");
+                player.sendMessage("RespawnEvent");
+            }
         }
     }
 }
