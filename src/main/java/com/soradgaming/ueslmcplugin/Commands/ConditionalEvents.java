@@ -79,10 +79,9 @@ public class ConditionalEvents implements Listener  {
         Player player = event.getPlayer();
         String world = player.getWorld().toString();
 
-        if (!(!event.isAnchorSpawn() && event.isBedSpawn()) || !(event.isAnchorSpawn() && !event.isBedSpawn())) {
-            if (world.equals("IridiumSkyblock_nether") || world.equals("IridiumSkyblock")) {
-                player.performCommand("is home");
-            }
+        if (world.equals("IridiumSkyblock_nether") || world.equals("IridiumSkyblock")) {
+            if (event.isBedSpawn() || event.isAnchorSpawn()) {
+            } else player.performCommand("is home");
         }
     }
 }
