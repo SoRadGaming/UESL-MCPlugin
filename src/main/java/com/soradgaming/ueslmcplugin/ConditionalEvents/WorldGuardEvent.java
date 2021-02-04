@@ -1,25 +1,22 @@
-package com.soradgaming.ueslmcplugin.Commands;
+package com.soradgaming.ueslmcplugin.ConditionalEvents;
 
 import net.raidstone.wgevents.events.RegionEnteredEvent;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerRespawnEvent;
 
 import java.lang.String;
 import java.util.ArrayList;
 
-//Conditional Events
-public class ConditionalEvents implements Listener  {
+//World Guard Events
+public class WorldGuardEvent implements Listener  {
     public ArrayList<Player> planetparkour_completed = new ArrayList<>();
     public ArrayList<Player> parkourparadise_completed = new ArrayList<>();
 
     //Event WorldGuard Region Enter
     @EventHandler
-    public void onRegionEntered(RegionEnteredEvent event) {
+    public void onRegionEntered(RegionEnteredEvent event) throws InterruptedException {
         Player player = event.getPlayer();
         String regionName = event.getRegionName();
         String p = event.getPlayer().getName();
@@ -31,8 +28,8 @@ public class ConditionalEvents implements Listener  {
         }
         //Skyblock_Death_Loop_Fix
         if (regionName.equals("skyblock_death_box")) {
-            player.performCommand("is home");
-            player.sendMessage("deathj loop command");// event not activated on respawn
+            wait(100);
+            player.performCommand("skyblocks");
         }
         //Dues Gamemode
         if (regionName.equals("duels_arena")) {
@@ -72,20 +69,6 @@ public class ConditionalEvents implements Listener  {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "eco give " + p + " 500000");
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "You have won 250 &eUESL Points&r for completing ParkourParadise!"));
             } else player.sendMessage("You have already claimed this prize!");
-        }
-    }
-
-    @EventHandler
-    public void PlayerRespawnEvent(PlayerRespawnEvent event) {
-        Player player = event.getPlayer();
-        String world = player.getWorld().toString();
-
-        if (world.equals("IridiumSkyblock_nether") || world.equals("IridiumSkyblock")) {
-            if (event.isBedSpawn() || event.isAnchorSpawn()) {
-            } else {
-                player.performCommand("is home");
-                player.sendMessage("RespawnEvent");
-            }
         }
     }
 }
