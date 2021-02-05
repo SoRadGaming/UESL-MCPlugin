@@ -25,7 +25,8 @@ public class JoinListeners implements Listener {
                 plugin.saveFile();
             }
         } else {
-            plugin.data.addDefault(player.getUniqueId().toString(), player.getUniqueId());
+            plugin.planetparkour_completed.add(player.getUniqueId());
+            plugin.parkourparadise_completed.add(player.getUniqueId());
             plugin.data.set(player.getUniqueId().toString() + ".planetparkour_completed", false);
             plugin.data.set(player.getUniqueId().toString() + ".parkourparadise_completed", false);
             plugin.saveFile();
