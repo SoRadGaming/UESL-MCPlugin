@@ -1,10 +1,11 @@
 package com.soradgaming.ueslmcplugin;
 
 import com.soradgaming.ueslmcplugin.ConditionalEvents.WorldGuardEvent;
-import com.soradgaming.ueslmcplugin.Handler.RegionChannel;
-import com.soradgaming.ueslmcplugin.Handler.WorldChannel;
+import com.soradgaming.ueslmcplugin.Chat.RegionChannel;
+import com.soradgaming.ueslmcplugin.Chat.WorldChannel;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+
 
 public final class UESLMCPlugin extends JavaPlugin {
 
@@ -34,6 +35,7 @@ public final class UESLMCPlugin extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new WorldChannel(), this);
         getServer().getPluginManager().registerEvents(new WorldGuardEvent(), this);
 
+        //File Generator
 
     }
 
