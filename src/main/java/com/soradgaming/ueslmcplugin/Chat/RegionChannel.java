@@ -18,24 +18,18 @@ public class RegionChannel implements Listener {
         String regionName = event.getRegionName();
 
         //Channel Event
-        if (regionName.equals("hub")) {
-            changeChannel(player, regionName);
-        } else if (regionName.equals("minigames")) {
-            changeChannel(player, regionName);
-        } else if (regionName.equals("shub")) {
-            changeChannel(player, regionName);
-        } else if (regionName.equals("hglobby")) {
-            changeChannel(player, regionName);
-        } else if (regionName.equals("duels_arena")) {
-            changeChannel(player, regionName);
-        } else if (regionName.equals("spleef")) {
-            changeChannel(player, regionName);
-        } else if (regionName.equals("build_battle")) {
-            changeChannel(player, regionName);
-        } else if (regionName.equals("tntrun")) {
-            changeChannel(player, regionName);
-        } else if (regionName.equals("paintball")) {
-            changeChannel(player, regionName);
+        switch (regionName) {
+            case "hub":
+            case "minigames":
+            case "shub":
+            case "hglobby":
+            case "duels_arena":
+            case "spleef":
+            case "build_battle":
+            case "tntrun":
+            case "paintball":
+                changeChannel(player, regionName);
+                break;
         }
     }
 

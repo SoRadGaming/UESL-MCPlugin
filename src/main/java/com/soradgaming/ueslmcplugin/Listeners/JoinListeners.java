@@ -6,7 +6,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-
 public class JoinListeners implements Listener {
 
     private UESLMCPlugin plugin;
@@ -25,7 +24,10 @@ public class JoinListeners implements Listener {
                 plugin.saveFile();
             }
         } else {
+            System.out.println("Adding Player to Data Base");
+            plugin.parkourparadise_completed.add(player.getUniqueId());
             plugin.data.set(player.getUniqueId().toString() + ".planetparkour_completed", false);
+            plugin.planetparkour_completed.add(player.getUniqueId());
             plugin.data.set(player.getUniqueId().toString() + ".parkourparadise_completed", false);
             plugin.saveFile();
         }
