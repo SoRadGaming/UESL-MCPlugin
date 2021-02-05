@@ -5,16 +5,12 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.String;
-import java.util.ArrayList;
 import java.util.Objects;
 
 //World Guard Events
-public class WorldGuardEvent extends JavaPlugin implements Listener  {
-    public ArrayList<Player> planetparkour_completed = new ArrayList<>();
-    public ArrayList<Player> parkourparadise_completed = new ArrayList<>();
+public class WorldGuardEvent implements Listener  {
 
     //Event WorldGuard Region Enter
     @EventHandler

@@ -1,4 +1,4 @@
-package com.soradgaming.ueslmcplugin.Handler;
+package com.soradgaming.ueslmcplugin.Chat;
 
 import me.ryandw11.ultrachat.api.UltraChatAPI;
 import me.ryandw11.ultrachat.api.channels.ChatChannel;
@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 
 public class WorldChannel implements Listener {
+
     public static UltraChatAPI chat = new UltraChatAPI();
 
     @EventHandler
@@ -37,5 +38,4 @@ public class WorldChannel implements Listener {
         ChatChannel c = chat.getChannelManager().getChannelByName(channel);
         chat.getChannelManager().setPlayerChannel(p, c);
     }
-
 }

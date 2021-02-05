@@ -1,4 +1,4 @@
-package com.soradgaming.ueslmcplugin.Handler;
+package com.soradgaming.ueslmcplugin.Chat;
 
 import me.ryandw11.ultrachat.api.UltraChatAPI;
 import me.ryandw11.ultrachat.api.channels.ChatChannel;
@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import java.lang.String;
 
 public class RegionChannel implements Listener {
+
     public static UltraChatAPI chat = new UltraChatAPI();
 
     @EventHandler
