@@ -1,6 +1,6 @@
 package com.soradgaming.ueslmcplugin.ConditionalEvents;
 
-import com.soradgaming.ueslmcplugin.Data.Data;
+import com.soradgaming.ueslmcplugin.UESLMCPlugin;
 import net.raidstone.wgevents.events.RegionEnteredEvent;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
@@ -13,8 +13,7 @@ import java.util.Objects;
 //World Guard Events
 public class WorldGuardEvent implements Listener  {
 
-    Data planetparkour_completed = new Data(Objects.requireNonNull(Data.loadData("plugins/UESL-MCPlugin/data/planetparkour_completed.data")));
-    Data parkourparadise_completed = new Data(Objects.requireNonNull(Data.loadData("plugins/UESL-MCPlugin/data/parkourparadise_completed.data")));
+    private UESLMCPlugin plugin;
 
     //Event WorldGuard Region Enter
     @EventHandler
@@ -57,8 +56,9 @@ public class WorldGuardEvent implements Listener  {
         //Planet Parkour End
         if (regionName.equals("planetparkour_end")) {
             assert player != null;
-            if(!planetparkour_completed.previouslyWonPlayers.contains(player.getUniqueId())){
-                planetparkour_completed.previouslyWonPlayers.add(player.getUniqueId());
+            if(plugin.data.getBoolean(player.getUniqueId().toString() + ".planetparkour_completed", false)) {
+                plugin.data.set(player.getUniqueId().toString() + ".planetparkour_completed", true);
+                plugin.saveFile();
                 player.sendTitle( ChatColor.BLUE + "" + ChatColor.BOLD + "Congratulations", "", 10, 70, 20);
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "procosmetics give coins " + p + " 250");
                 player.sendMessage("You have won $500,000 for completing PlanetParkour!");
@@ -71,8 +71,9 @@ public class WorldGuardEvent implements Listener  {
         //Parkour Paradise End
         if (regionName.equals("parkourparadise_end")) {
             assert player != null;
-            if (!parkourparadise_completed.previouslyWonPlayers.contains(player.getUniqueId())) {
-                parkourparadise_completed.previouslyWonPlayers.add(player.getUniqueId());
+            if (plugin.data.getBoolean(player.getUniqueId().toString() + ".parkourparadise_completed", false)) {
+                plugin.data.set(player.getUniqueId().toString() + ".parkourparadise_completed", true);
+                plugin.saveFile();
                 player.sendMessage("You completed Parkour Paradise");
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "procosmetics give coins " + p + " 250");
                 player.sendMessage("You have won $500,000 for completing ParkourParadise!");
