@@ -10,6 +10,10 @@ public class JoinListeners implements Listener {
 
     private UESLMCPlugin plugin;
 
+    public JoinListeners() {
+        plugin = UESLMCPlugin.plugin;
+    }
+
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -24,7 +28,7 @@ public class JoinListeners implements Listener {
                 plugin.saveFile();
             }
         } else {
-            System.out.println("Adding Player to Data Base");
+            plugin.getLogger().info("Adding " + player.getName() + " to Data Base");
             plugin.parkourparadise_completed.add(player.getUniqueId());
             plugin.data.set(player.getUniqueId().toString() + ".planetparkour_completed", false);
             plugin.planetparkour_completed.add(player.getUniqueId());

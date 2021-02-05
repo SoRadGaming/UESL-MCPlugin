@@ -4,7 +4,6 @@ import com.soradgaming.ueslmcplugin.ConditionalEvents.WorldGuardEvent;
 import com.soradgaming.ueslmcplugin.Chat.RegionChannel;
 import com.soradgaming.ueslmcplugin.Chat.WorldChannel;
 import com.soradgaming.ueslmcplugin.Listeners.JoinListeners;
-import me.ryandw11.ultrachat.listner.JoinListner;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
