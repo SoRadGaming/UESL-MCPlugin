@@ -62,6 +62,7 @@ public final class UESLMCPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         saveFile();
+        getLogger().info("The plugin has been disabled correctly!");
     }
 
     //Loads all of the Events and Commands.
