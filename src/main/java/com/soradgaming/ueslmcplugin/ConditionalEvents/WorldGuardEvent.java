@@ -48,7 +48,7 @@ public class WorldGuardEvent implements Listener  {
         if (regionName.equals("shub_portal")) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p + " permission set essentials.warps.secrethub true");
             assert player != null;
-            player.sendTitle(ChatColor.BLUE + "" + ChatColor.BOLD + "Congratulations", "", 10, 70, 20);
+            player.sendTitle(ChatColor.BLUE + "" + "Congratulations", "", 10, 70, 20);
             player.sendMessage("Use /shub to get here in the future");
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "warp secrethub " + p);
         }
@@ -62,7 +62,7 @@ public class WorldGuardEvent implements Listener  {
             if(!plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".planetparkour_completed")) {
                 plugin.data.set(player.getUniqueId().toString() + ".planetparkour_completed", true);
                 plugin.saveFile();
-                player.sendTitle( ChatColor.BLUE + "" + ChatColor.BOLD + "Congratulations", "", 10, 70, 20);
+                player.sendTitle( ChatColor.BLUE + "" + "Congratulations", "", 10, 70, 20);
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "procosmetics give coins " + p + " 250");
                 player.sendMessage("You have won $500,000 for completing PlanetParkour!");
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "eco give " + p + " 500000");
