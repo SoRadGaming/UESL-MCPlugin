@@ -1,5 +1,6 @@
 package com.soradgaming.ueslmcplugin;
 
+import com.soradgaming.ueslmcplugin.Commands.UESLCommand;
 import com.soradgaming.ueslmcplugin.ConditionalEvents.PlayerWorldChangeEvent;
 import com.soradgaming.ueslmcplugin.ConditionalEvents.WorldGuardEvent;
 import com.soradgaming.ueslmcplugin.Chat.RegionChannel;
@@ -15,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -49,7 +51,7 @@ public final class UESLMCPlugin extends JavaPlugin {
             throw new RuntimeException("Could not find WorldGuardEvents! Plugin can not work without it!");
         }
 
-        //Load EventHandler
+        //Load EventHandler and Commands
         loadMethod();
 
         //Load Data
@@ -64,6 +66,9 @@ public final class UESLMCPlugin extends JavaPlugin {
 
     //Loads all of the Events and Commands.
     public void loadMethod() {
+        //Registers Commands
+        Objects.requireNonNull(getCommand("uesl")).setExecutor(new UESLCommand());
+        // Registers Events
         Bukkit.getServer().getPluginManager().registerEvents(new RegionChannel(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new WorldChannel(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new WorldGuardEvent(), this);
