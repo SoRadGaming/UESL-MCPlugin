@@ -1,5 +1,6 @@
 package com.soradgaming.ueslmcplugin;
 
+import com.soradgaming.ueslmcplugin.Commands.CommandTabCompleter;
 import com.soradgaming.ueslmcplugin.Commands.UESLCommand;
 import com.soradgaming.ueslmcplugin.ConditionalEvents.PlayerWorldChangeEvent;
 import com.soradgaming.ueslmcplugin.ConditionalEvents.WorldGuardEvent;
@@ -68,6 +69,7 @@ public final class UESLMCPlugin extends JavaPlugin {
     public void loadMethod() {
         //Registers Commands
         Objects.requireNonNull(getCommand("uesl")).setExecutor(new UESLCommand());
+        Objects.requireNonNull(getCommand("uesl")).setTabCompleter(new CommandTabCompleter());
         // Registers Events
         Bukkit.getServer().getPluginManager().registerEvents(new RegionChannel(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new WorldChannel(), this);
