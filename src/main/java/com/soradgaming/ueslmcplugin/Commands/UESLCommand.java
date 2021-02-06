@@ -10,6 +10,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class UESLCommand implements CommandExecutor {
 
     private UESLMCPlugin plugin;
@@ -50,6 +52,24 @@ public class UESLCommand implements CommandExecutor {
                 plugin.getLogger().info("Config Reloaded");
             } else {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
+                return true;
+            }
+        } else if (args.length == 2 && args[0].equalsIgnoreCase("data")) {
+            if (sender.isOp()) {
+                Player player = Bukkit.getServer().getPlayer(args[1]);
+
+                if (player == null) {
+                    sender.sendMessage(ChatColor.RED + "Player can not be null!");
+                    return true;
+                }
+
+                sender.sendMessage(Objects.requireNonNull(plugin.data.getString(player.getUniqueId().toString())));
+                sender.sendMessage(Objects.requireNonNull(plugin.data.getString("planetparkour_completed" + Objects.requireNonNull(player).getUniqueId().toString() + ".planetparkour_completed")));
+                sender.sendMessage(Objects.requireNonNull(plugin.data.getString("parkourparadise_completed" + Objects.requireNonNull(player).getUniqueId().toString() + ".parkourparadise_completed")));
+
+            } else {
+                sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
+                return true;
             }
         } else if (args.length == 5 && args[0].equalsIgnoreCase("data")) {
             if (sender.isOp()) {
