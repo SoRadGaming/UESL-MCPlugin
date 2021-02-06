@@ -47,6 +47,5 @@ public class JoinListeners implements Listener {
             player.performCommand("hub");
             player.sendTitle(ChatColor.YELLOW + "" + "Welcome Back",ChatUtil.translateColorCode("#1782FE") + player.getName() + " to UESL World", 20, 60, 20);
         }
-
     }
 }

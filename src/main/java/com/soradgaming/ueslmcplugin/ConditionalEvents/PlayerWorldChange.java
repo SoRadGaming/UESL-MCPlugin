@@ -33,14 +33,10 @@ public class PlayerWorldChange implements Listener {
 
         //Parkour Join
         if (worldFrom.equals("World")) {
-            if (player.getWorld().toString().equals("ParkourParadise")) {
-                if (plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".parkourparadise_completed")) {
+            if (player.getWorld().toString().equals("ParkourParadise") && plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".parkourparadise_completed")) {
                     player.sendMessage("You have already claimed the prize for this course!");
-                }
-            } else if (player.getWorld().toString().equals("PlanetParkour")) {
-                if (plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".planetparkour_completed")) {
+            } else if (player.getWorld().toString().equals("PlanetParkour") && plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".planetparkour_completed")) {
                     player.sendMessage("You have already claimed the prize for this course!");
-                }
             }
             player.sendMessage("Use /minigames to leave the course and return to minigames");
         }
