@@ -37,19 +37,19 @@ public class UESLCommand implements CommandExecutor {
             }
             sender.sendMessage(ChatColor.BLUE + "-----------------=[" + ChatUtil.translateColorCode("#1782FE") + "UESL-MCPlugin" + ChatColor.BLUE + "]=-----------------");
             sender.sendMessage(ChatUtil.translateColorCode("#1782FE") + "/uesl help" + ChatColor.BLUE + "  The help command.");
-            sender.sendMessage(ChatUtil.translateColorCode("#1782FE") + "/uesl reload" + ChatColor.BLUE + "  To reload the config");
+            sender.sendMessage(ChatUtil.translateColorCode("#1782FE") + "/uesl reload" + ChatColor.BLUE + "  To reload the plugin");
+            sender.sendMessage(ChatUtil.translateColorCode("#1782FE") + "/uesl data player" + ChatColor.BLUE + "  To View a players data");
+            sender.sendMessage(ChatUtil.translateColorCode("#1782FE") + "/uesl data edit player dataset value" + ChatColor.BLUE + "  Modify the data in player.yml");
             sender.sendMessage(ChatColor.BLUE + "Plugin made by: " + ChatUtil.translateColorCode("#1782FE") + "SoRadGaming");
             sender.sendMessage(ChatColor.BLUE + "---------------------------------------------------");
 
         } else if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
             if (sender.isOp()) {
                 plugin.saveFile();
-                sender.sendMessage("[UESL-MCPlugin] Data Reloaded");
-                plugin.getLogger().info("Data Reloaded");
                 plugin.reloadConfig();
                 plugin.loadFile();
-                sender.sendMessage("[UESL-MCPlugin] Config Reloaded");
-                plugin.getLogger().info("Config Reloaded");
+                plugin.getLogger().info("Reloaded");
+                sender.sendMessage("[UESL-MCPlugin] Data Reloaded");
             } else {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
                 return true;
