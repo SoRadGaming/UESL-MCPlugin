@@ -1,6 +1,6 @@
 package com.soradgaming.ueslmcplugin;
 
-import com.soradgaming.ueslmcplugin.ConditionalEvents.PlayerWorldChange;
+import com.soradgaming.ueslmcplugin.ConditionalEvents.PlayerWorldChangeEvent;
 import com.soradgaming.ueslmcplugin.ConditionalEvents.WorldGuardEvent;
 import com.soradgaming.ueslmcplugin.Chat.RegionChannel;
 import com.soradgaming.ueslmcplugin.Chat.WorldChannel;
@@ -68,7 +68,7 @@ public final class UESLMCPlugin extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new WorldChannel(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new WorldGuardEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new JoinListeners(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new PlayerWorldChange(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new PlayerWorldChangeEvent(), this);
     }
 
     //Save the data file.

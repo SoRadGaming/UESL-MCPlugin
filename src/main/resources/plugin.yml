@@ -5,3 +5,6 @@ api-version: 1.16
 authors: [ SoRadGaming ]
 description: Plugin for the UESL Minecraft Server
 depend: [WorldGuardEvents, WorldGuard, UltraChat]
+commands:
+  uesl:
+    description: The main command for the plugin.

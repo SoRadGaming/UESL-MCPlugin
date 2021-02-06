@@ -1,41 +1,41 @@
 package com.soradgaming.ueslmcplugin.ConditionalEvents;
 
 import com.soradgaming.ueslmcplugin.UESLMCPlugin;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
+import java.util.Collections;
 import java.util.Objects;
 
-public class PlayerWorldChange implements Listener {
+public class PlayerWorldChangeEvent implements Listener {
 
     private UESLMCPlugin plugin;
 
-    public PlayerWorldChange() {
+    public PlayerWorldChangeEvent() {
         plugin = UESLMCPlugin.plugin;
     }
 
     @EventHandler
-    public void PlayerWorldChangeEvent(PlayerChangedWorldEvent event) {
+    public void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
         String worldFrom = event.getFrom().getName();
         String worldTo = player.getWorld().getName();
 
         //Half Heart PlanetParkour Fix
         if (worldFrom.equals("PlanetParkour")) {
-            if (Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue() <= 2) {
-                Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20);
                 player.setHealth(20);
-            }
+                player.addPotionEffects(Collections.singleton(new PotionEffect(PotionEffectType.REGENERATION, 1, 20)));
         }
 
         //Parkour Join
         if (worldFrom.equals("World")) {
-            if (player.getWorld().toString().equals("ParkourParadise") && plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".parkourparadise_completed")) {
+            if (worldTo.equals("ParkourParadise") && plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".parkourparadise_completed")) {
                     player.sendMessage("You have already claimed the prize for this course!");
-            } else if (player.getWorld().toString().equals("PlanetParkour") && plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".planetparkour_completed")) {
+            } else if (worldTo.equals("PlanetParkour") && plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".planetparkour_completed")) {
                     player.sendMessage("You have already claimed the prize for this course!");
             }
             player.sendMessage("Use /minigames to leave the course and return to minigames");
