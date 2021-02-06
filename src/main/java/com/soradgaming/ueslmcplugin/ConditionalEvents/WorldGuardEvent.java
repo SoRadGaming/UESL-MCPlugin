@@ -15,6 +15,10 @@ public class WorldGuardEvent implements Listener  {
 
     private UESLMCPlugin plugin;
 
+    public WorldGuardEvent() {
+        plugin = UESLMCPlugin.plugin;
+    }
+
     //Event WorldGuard Region Enter
     @EventHandler
     public void onRegionEntered(RegionEnteredEvent event) {
@@ -55,8 +59,7 @@ public class WorldGuardEvent implements Listener  {
         }
         //Planet Parkour End
         if (regionName.equals("planetparkour_end")) {
-            assert player != null;
-            if(plugin.data.getBoolean(player.getUniqueId().toString() + ".planetparkour_completed", false)) {
+            if(plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".planetparkour_completed", false)) {
                 plugin.data.set(player.getUniqueId().toString() + ".planetparkour_completed", true);
                 plugin.saveFile();
                 player.sendTitle( ChatColor.BLUE + "" + ChatColor.BOLD + "Congratulations", "", 10, 70, 20);
@@ -70,8 +73,7 @@ public class WorldGuardEvent implements Listener  {
         }
         //Parkour Paradise End
         if (regionName.equals("parkourparadise_end")) {
-            assert player != null;
-            if (plugin.data.getBoolean(player.getUniqueId().toString() + ".parkourparadise_completed", false)) {
+            if (plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".parkourparadise_completed", false)) {
                 plugin.data.set(player.getUniqueId().toString() + ".parkourparadise_completed", true);
                 plugin.saveFile();
                 player.sendMessage("You completed Parkour Paradise");
