@@ -6,4 +6,4 @@ Commands:
 - /uesl help
 - /uesl reload
 - /uesl data player
-- /uesl data edit player dataset value
+- /uesl edit player dataset value
