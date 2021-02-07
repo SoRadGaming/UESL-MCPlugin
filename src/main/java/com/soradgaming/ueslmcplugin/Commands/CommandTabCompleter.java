@@ -1,6 +1,7 @@
 package com.soradgaming.ueslmcplugin.Commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -18,9 +19,8 @@ public class CommandTabCompleter implements TabCompleter {
             if (args.length == 1) {
                 completions = new ArrayList<>(Arrays.asList("data", "help", "reload", "edit"));
                 completions = getApplicableTabCompletes(args[0], completions);
-            } else {
-                if (args.length == 2) {
-                    if (args[0].equalsIgnoreCase("data") || args[0].equalsIgnoreCase("edit")) {
+            } else if (args.length == 2) {
+                    if (args[0].equals("data") || args[0].equals("edit")) {
                         completions = new ArrayList<>();
                         for (Player player : Bukkit.getOnlinePlayers()) {
                             completions.add(player.getName());
@@ -29,21 +29,14 @@ public class CommandTabCompleter implements TabCompleter {
                     } else {
                         return null;
                     }
-                }
-                if (args.length == 3) {
-                    ArrayList<String> players = new ArrayList<>();
-                    for (Player player : Bukkit.getOnlinePlayers()) {
-                        players.add(player.getName());
-                    }
-
-                    if (args[1].contains(players.toString())) {
+                } else if (args.length == 3) {
+                    if (args[0].equals("edit")) {
                         completions = new ArrayList<>(Arrays.asList("parkourparadise_completed", "planetparkour_completed"));
                         completions = getApplicableTabCompletes(args[2], completions);
                     } else {
                         return null;
                     }
-                }
-                if (args.length == 4) {
+                } else if (args.length == 4) {
                     if (args[2].equals("planetparkour_completed") || args[2].equals("parkourparadise_completed")) {
                         completions = new ArrayList<>(Arrays.asList("true", "false"));
                         completions = getApplicableTabCompletes(args[3], completions);
@@ -51,7 +44,6 @@ public class CommandTabCompleter implements TabCompleter {
                         return null;
                     }
                 }
-            }
             Collections.sort(completions);
             return completions;
         }
