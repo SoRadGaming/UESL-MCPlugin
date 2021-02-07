@@ -25,7 +25,7 @@ public class CommandTabCompleter implements TabCompleter {
                 if(args[0].equalsIgnoreCase("data") || args[0].equalsIgnoreCase("edit")) {
                     completions = new ArrayList<>();
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        completions.add(player.toString());
+                        completions.add(player.getName());
                     }
                     completions = getApplicableTabCompletes(args.length == 2 ? args[1] : "", completions);
                 } else {
