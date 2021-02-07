@@ -7,10 +7,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class CommandTabCompleter implements TabCompleter {
 
@@ -22,14 +19,37 @@ public class CommandTabCompleter implements TabCompleter {
                 completions = new ArrayList<>(Arrays.asList("data", "help", "reload", "edit"));
                 completions = getApplicableTabCompletes(args[0], completions);
             } else {
-                if(args[0].equalsIgnoreCase("data") || args[0].equalsIgnoreCase("edit")) {
-                    completions = new ArrayList<>();
-                    for (Player player : Bukkit.getOnlinePlayers()) {
-                        completions.add(player.getName());
+                if (args.length == 2) {
+                    if (args[0].equalsIgnoreCase("data") || args[0].equalsIgnoreCase("edit")) {
+                        completions = new ArrayList<>();
+                        for (Player player : Bukkit.getOnlinePlayers()) {
+                            completions.add(player.getName());
+                        }
+                        completions = getApplicableTabCompletes(args[1], completions);
+                    } else {
+                        return null;
                     }
-                    completions = getApplicableTabCompletes(args.length == 2 ? args[1] : "", completions);
-                } else {
-                    return null;
+                }
+                if (args.length == 3) {
+                    ArrayList<String> players = new ArrayList<>();
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        players.add(player.getName());
+                    }
+
+                    if (args[1].contains(players.toString())) {
+                        completions = new ArrayList<>(Arrays.asList("parkourparadise_completed", "planetparkour_completed"));
+                        completions = getApplicableTabCompletes(args[2], completions);
+                    } else {
+                        return null;
+                    }
+                }
+                if (args.length == 4) {
+                    if (args[2].equals("planetparkour_completed") || args[2].equals("parkourparadise_completed")) {
+                        completions = new ArrayList<>(Arrays.asList("true", "false"));
+                        completions = getApplicableTabCompletes(args[3], completions);
+                    } else {
+                        return null;
+                    }
                 }
             }
             Collections.sort(completions);

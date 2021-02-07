@@ -48,7 +48,7 @@ public class UESLCommand implements CommandExecutor {
                 plugin.reloadConfig();
                 plugin.loadFile();
                 plugin.getLogger().info("Reloaded");
-                sender.sendMessage("[UESL-MCPlugin] Data Reloaded");
+                sender.sendMessage(ChatColor.GREEN + "Reloaded");
             } else {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
                 return true;
