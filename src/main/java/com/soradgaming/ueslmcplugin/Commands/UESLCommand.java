@@ -66,29 +66,28 @@ public class UESLCommand implements CommandExecutor {
                 boolean planetparkour_completed_boolean = plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".planetparkour_completed");
                 boolean parkourparadise_completed_boolean = plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".parkourparadise_completed");
 
-                sender.sendMessage(player.toString() + " data " + "planetparkour_completed:" + Boolean.toString(planetparkour_completed_boolean) + "; parkourparadise_completed:" + Boolean.toString(parkourparadise_completed_boolean) + ";");
+                sender.sendMessage(ChatColor.BLUE + player.getName() + " Data " + ChatColor.DARK_GREEN + "planetparkour_completed:" + ChatColor.YELLOW + Boolean.toString(planetparkour_completed_boolean) + ";" + ChatColor.DARK_GREEN + " parkourparadise_completed:" + ChatColor.YELLOW + Boolean.toString(parkourparadise_completed_boolean) + ";");
 
             } else {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
                 return true;
             }
-        } else if (args.length == 5 && args[0].equalsIgnoreCase("data")) {
+        } else if (args.length == 4 && args[0].equalsIgnoreCase("edit")) {
             if (sender.isOp()) {
-                if (args[1].equals("edit")) {
-                    Player player = Bukkit.getServer().getPlayer(args[2]);
-                    boolean TorF = Boolean.parseBoolean(args[4]);
+                    Player player = Bukkit.getServer().getPlayer(args[1]);
+                    boolean TorF = Boolean.parseBoolean(args[3]);
 
                     if (player == null) {
                         sender.sendMessage(ChatColor.RED + "Player can not be null!");
                         return true;
                     }
 
-                    if (args[3].equals("planetparkour_completed") || args[3].equals("parkourparadise_completed")) {
+                    if (args[2].equals("planetparkour_completed") || args[2].equals("parkourparadise_completed")) {
                         plugin.data.set(player.getUniqueId().toString() + "." + args[3], TorF);
                         plugin.saveFile();
-                        player.sendMessage("Set " + player.toString() + " " + args[3] + "" + Boolean.toString(TorF));
+                        player.sendMessage("Set " + ChatColor.BLUE + player.toString() + " " + ChatColor.DARK_GREEN + args[2] + "" + ChatColor.YELLOW + Boolean.toString(TorF));
                     } else sender.sendMessage(ChatColor.RED + "Invalid Data Set");
-                }
+
             } else sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
         }
         return false;
