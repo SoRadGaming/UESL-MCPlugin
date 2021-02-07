@@ -63,9 +63,10 @@ public class UESLCommand implements CommandExecutor {
                     return true;
                 }
 
-                sender.sendMessage(Objects.requireNonNull(plugin.data.getString(player.getUniqueId().toString())));
-                sender.sendMessage(Objects.requireNonNull(plugin.data.getString("planetparkour_completed" + Objects.requireNonNull(player).getUniqueId().toString() + ".planetparkour_completed")));
-                sender.sendMessage(Objects.requireNonNull(plugin.data.getString("parkourparadise_completed" + Objects.requireNonNull(player).getUniqueId().toString() + ".parkourparadise_completed")));
+                boolean planetparkour_completed_boolean = plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".planetparkour_completed");
+                boolean parkourparadise_completed_boolean = plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".parkourparadise_completed");
+
+                sender.sendMessage(player.toString() + " data " + "planetparkour_completed:" + Boolean.toString(planetparkour_completed_boolean) + "; parkourparadise_completed:" + Boolean.toString(parkourparadise_completed_boolean) + ";");
 
             } else {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
@@ -85,6 +86,7 @@ public class UESLCommand implements CommandExecutor {
                     if (args[3].equals("planetparkour_completed") || args[3].equals("parkourparadise_completed")) {
                         plugin.data.set(player.getUniqueId().toString() + "." + args[3], TorF);
                         plugin.saveFile();
+                        player.sendMessage("Set " + player.toString() + " " + args[3] + "" + Boolean.toString(TorF));
                     } else sender.sendMessage(ChatColor.RED + "Invalid Data Set");
                 }
             } else sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
