@@ -26,6 +26,7 @@ public class RegionChannel implements Listener {
             case "duels_arena":
             case "spleef":
             case "build_battle":
+            case "castle-defenders":
             case "tntrun":
             case "paintball":
                 changeChannel(player, regionName);

@@ -6,7 +6,6 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-
 import java.lang.String;
 import java.util.Objects;
 
@@ -19,12 +18,15 @@ public class WorldGuardEvent implements Listener  {
         plugin = UESLMCPlugin.plugin;
     }
 
+    public static String PlayerRegion;
+
     //Event WorldGuard Region Enter
     @EventHandler
     public void onRegionEntered(RegionEnteredEvent event) {
         Player player = event.getPlayer();
         String regionName = event.getRegionName();
         String p = Objects.requireNonNull(event.getPlayer()).getName();
+        PlayerRegion = event.getRegionName();
 
         //Skyblock_Portal
         if (regionName.equals("skyblock_portal_1") || regionName.equals("skyblock_portal_2") || regionName.equals("skyblock_portal_3") || regionName.equals("skyblock_portal_4") || regionName.equals("skyblock_portal_5") || regionName.equals("skyblock_portal_6")) {
