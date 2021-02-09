@@ -12,7 +12,7 @@ import java.util.Objects;
 //World Guard Events
 public class WorldGuardEvent implements Listener  {
 
-    private UESLMCPlugin plugin;
+    private final UESLMCPlugin plugin;
 
     public WorldGuardEvent() {
         plugin = UESLMCPlugin.plugin;
@@ -33,7 +33,7 @@ public class WorldGuardEvent implements Listener  {
             assert player != null;
             player.performCommand("is home");
             player.sendMessage("Welcome to Skyblock!");
-            player.sendMessage("Use "+ ChatColor.GREEN + "/is " + ChatColor.WHITE + "for skyblock commands");
+            player.sendMessage("Use "+ ChatColor.BLUE + "/is " + ChatColor.WHITE + "for skyblock commands");
         }
         //Skyblock_Death_Loop_Fix
         if (regionName.equals("skyblock_death_box") || regionName.equals("skyblock_death_box_nether")) {

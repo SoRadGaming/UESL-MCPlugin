@@ -13,7 +13,7 @@ import java.util.Objects;
 
 public class UESLCommand implements CommandExecutor {
 
-    private UESLMCPlugin plugin;
+    private final UESLMCPlugin plugin;
     public UESLCommand() {
         plugin = UESLMCPlugin.plugin;
     }

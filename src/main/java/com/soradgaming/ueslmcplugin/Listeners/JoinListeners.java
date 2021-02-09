@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class JoinListeners implements Listener {
 
-    private UESLMCPlugin plugin;
+    private final UESLMCPlugin plugin;
 
     public JoinListeners() {
         plugin = UESLMCPlugin.plugin;
