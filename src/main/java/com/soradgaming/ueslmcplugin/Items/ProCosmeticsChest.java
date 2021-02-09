@@ -21,7 +21,7 @@ import java.util.Objects;
 
 public class ProCosmeticsChest implements Listener {
 
-    //Chest Click Usage
+    //Chest Click Usage - Working
     @EventHandler
     public void onClick(PlayerInteractEvent event) {
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
@@ -40,7 +40,7 @@ public class ProCosmeticsChest implements Listener {
         }
     }
 
-    //Prevent Moving the Chest
+    //Prevent Moving the Chest - Error in Console (can move in hot bar but not out of player inventory) - TODO
     @EventHandler
     public void onChestMoveItems(InventoryClickEvent event) {
         ItemStack chest = event.getCurrentItem();
@@ -50,7 +50,7 @@ public class ProCosmeticsChest implements Listener {
         }
     }
 
-    //Prevent Dropping the Chest
+    //Prevent Dropping the Chest - Working
     @EventHandler
     public void onDrop(PlayerDropItemEvent event) {
         ItemStack chest = event.getItemDrop().getItemStack();
@@ -59,7 +59,7 @@ public class ProCosmeticsChest implements Listener {
         }
     }
 
-    //Give Chest on Join
+    //Give Chest on Join - Working
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player p = event.getPlayer();
@@ -74,7 +74,7 @@ public class ProCosmeticsChest implements Listener {
         }
     }
 
-    //Give Chest on Region/World Change
+    //Give Chest on Region/World Change - TODO
     @EventHandler
     public void onRegionEntered(RegionEnteredEvent event) {
         Player p = event.getPlayer();
@@ -90,16 +90,17 @@ public class ProCosmeticsChest implements Listener {
                     System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
                 }
             }
-        } else if (p.getInventory().contains(this.Chest()) || p.getInventory().getItemInOffHand().isSimilar(chest)) {
-            p.getInventory().removeItem(this.Chest());
-            System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
         } else {
+            if (p.getInventory().contains(this.Chest()) || p.getInventory().getItemInOffHand().isSimilar(chest)) {
+                p.getInventory().removeItem(this.Chest());
+                System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
+            } else {
                 System.out.println("[UESL-MCPlugin] A player Region/World Change error has been thrown. Please contact SoRadGaming if the problem persist.");
+            }
         }
-
     }
 
-    //Chest Item
+    //Chest Item - Working
     public ItemStack Chest() {
         ItemStack chest = new ItemStack(Material.CHEST);
         ItemMeta chestMeta = chest.getItemMeta();
