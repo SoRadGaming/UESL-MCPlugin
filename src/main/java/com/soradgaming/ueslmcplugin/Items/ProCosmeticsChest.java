@@ -29,7 +29,7 @@ public class ProCosmeticsChest implements Listener {
             try {
                 if (p.getInventory().getItemInMainHand().getType() == Material.CHEST && Objects.requireNonNull(p.getInventory().getItemInMainHand().getItemMeta()).getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', "&aCosmetic Menu &7(Right-click)"))) {
                     event.setCancelled(true);
-                    p.performCommand("cosmetics");
+                    p.performCommand("procosmetics open main");
                 } else {
                     event.setCancelled(true);
                 }
@@ -95,8 +95,6 @@ public class ProCosmeticsChest implements Listener {
             if (p.getInventory().contains(this.Chest()) || p.getInventory().getItemInOffHand().isSimilar(chest)) {
                 p.getInventory().removeItem(this.Chest());
                 System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
-            } else {
-                System.out.println("[UESL-MCPlugin] A player Region/World Change error has been thrown. Please contact SoRadGaming if the problem persist.");
             }
         }
     }
