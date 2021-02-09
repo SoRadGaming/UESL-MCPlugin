@@ -86,12 +86,10 @@ public class ProCosmeticsChest implements Listener {
 
         if (region.equals("hub") || region.equals("shub") || region.equals("minigames") || region.equals("hglobby")) {
             if (!p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
-                if (region.equals("minigames")) {
                     p.getInventory().setItem(8, chest);
-                } else {
-                    p.getInventory().addItem(this.Chest());
+                    //p.getInventory().addItem(this.Chest());
                     System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
-                }
+
             }
         } else {
             if (p.getInventory().contains(this.Chest()) || p.getInventory().getItemInOffHand().isSimilar(chest)) {
