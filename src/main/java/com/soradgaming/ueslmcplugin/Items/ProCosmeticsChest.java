@@ -63,7 +63,7 @@ public class ProCosmeticsChest implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player p = event.getPlayer();
-        if (p.getWorld().getName().equals("Lobby")) {
+        if (p.getWorld().getName().equals("Lobbyy")) {
             ItemStack chest = this.Chest();
             if (!p.getInventory().contains(chest)) {
                 p.getInventory().setItem(8, chest);
