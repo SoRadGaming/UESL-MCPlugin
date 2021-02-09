@@ -76,18 +76,19 @@ public class ProCosmeticsChest implements Listener {
         }
     }
 
-    //Give Chest on Region/World Change - TODO
+    //Give Chest on Region Change
     @EventHandler
     public void onRegionEntered(RegionEnteredEvent event) {
         Player p = event.getPlayer();
         ItemStack chest = this.Chest();
         String region = event.getRegionName();
         assert p != null;
-        String world = p.getWorld().toString();
 
-        if (world.equals("Lobbyy") || world.equals("World")) {
-            if (region.equals("hub") || region.equals("shub") || region.equals("minigames") || region.equals("hglobby")) {
-                if (!p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
+        if (region.equals("hub") || region.equals("shub") || region.equals("minigames") || region.equals("hglobby")) {
+            if (!p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
+                if (region.equals("minigames")) {
+                    p.getInventory().setItem(8, chest);
+                } else {
                     p.getInventory().addItem(this.Chest());
                     System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
                 }
