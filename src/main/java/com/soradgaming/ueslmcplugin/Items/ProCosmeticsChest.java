@@ -83,19 +83,20 @@ public class ProCosmeticsChest implements Listener {
         assert p != null;
         String world = p.getWorld().toString();
 
-        if (world.equals("Lobby") || world.equals("World")) {
+        if (world.equals("Lobbyy") || world.equals("World")) {
             if (region.equals("hub") || region.equals("shub") || region.equals("minigames") || region.equals("hglobby")) {
                 if (!p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
                     p.getInventory().addItem(this.Chest());
                     System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
                 }
             }
+        } else if (p.getInventory().contains(this.Chest()) || p.getInventory().getItemInOffHand().isSimilar(chest)) {
+            p.getInventory().removeItem(this.Chest());
+            System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
         } else {
-            if (p.getInventory().contains(this.Chest()) || p.getInventory().getItemInOffHand().isSimilar(chest)) {
-                p.getInventory().removeItem(this.Chest());
-                System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
-            }
+                System.out.println("[UESL-MCPlugin] A player Region/World Change error has been thrown. Please contact SoRadGaming if the problem persist.");
         }
+
     }
 
     //Chest Item
