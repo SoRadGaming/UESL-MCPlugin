@@ -6,6 +6,7 @@ import com.soradgaming.ueslmcplugin.ConditionalEvents.PlayerWorldChangeEvent;
 import com.soradgaming.ueslmcplugin.ConditionalEvents.WorldGuardEvent;
 import com.soradgaming.ueslmcplugin.Chat.RegionChannel;
 import com.soradgaming.ueslmcplugin.Chat.WorldChannel;
+import com.soradgaming.ueslmcplugin.Items.ProCosmeticsChest;
 import com.soradgaming.ueslmcplugin.Listeners.JoinListeners;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -76,6 +77,7 @@ public final class UESLMCPlugin extends JavaPlugin {
         Bukkit.getServer().getPluginManager().registerEvents(new WorldGuardEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new JoinListeners(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new PlayerWorldChangeEvent(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new ProCosmeticsChest(), this);
     }
 
     //Save the data file.

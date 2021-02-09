@@ -1,6 +1,7 @@
 package com.soradgaming.ueslmcplugin.ConditionalEvents;
 
 import com.soradgaming.ueslmcplugin.UESLMCPlugin;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,7 +11,7 @@ import java.util.Objects;
 
 public class PlayerWorldChangeEvent implements Listener {
 
-    private UESLMCPlugin plugin;
+    private final UESLMCPlugin plugin;
 
     public PlayerWorldChangeEvent() {
         plugin = UESLMCPlugin.plugin;
@@ -33,6 +34,9 @@ public class PlayerWorldChangeEvent implements Listener {
             } else if (worldTo.equals("PlanetParkour") || worldTo.equals("ParkourParadise")) {
                 player.sendMessage("Use /minigames to leave the course and return to minigames");
             }
+        }
+        if (worldTo.contains("factions")) {
+            player.sendMessage("Use "+ ChatColor.RED + "/f " + ChatColor.WHITE + "for faction commands");
         }
     }
 }
