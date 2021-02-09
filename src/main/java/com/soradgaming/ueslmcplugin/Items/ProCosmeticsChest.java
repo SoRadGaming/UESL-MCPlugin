@@ -41,6 +41,7 @@ public class ProCosmeticsChest implements Listener {
     }
 
     //Prevent Moving the Chest - Error in Console (can move in hot bar but not out of player inventory) - TODO
+    /*
     @EventHandler
     public void onChestMoveItems(InventoryClickEvent event) {
         ItemStack chest = event.getCurrentItem();
@@ -49,6 +50,7 @@ public class ProCosmeticsChest implements Listener {
             event.setCancelled(true);
         }
     }
+    */
 
     //Prevent Dropping the Chest - Working
     @EventHandler
