@@ -92,15 +92,14 @@ public class ProCosmeticsChest implements Listener {
                     System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
 
             }
-        } else {
-            if (p.getInventory().contains(this.Chest()) || p.getInventory().getItemInOffHand().isSimilar(chest)) {
-                p.getInventory().removeItem(this.Chest());
-                System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
-            }
+        } else if (p.getInventory().contains(this.Chest()) || p.getInventory().getItemInOffHand().isSimilar(chest)) {
+            //p.getInventory().removeItem(this.Chest());
+            p.getInventory().removeItem(chest);
+            System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
         }
     }
 
-    //Chest Item - Working
+    //Chest Item
     public ItemStack Chest() {
         ItemStack chest = new ItemStack(Material.CHEST);
         ItemMeta chestMeta = chest.getItemMeta();
