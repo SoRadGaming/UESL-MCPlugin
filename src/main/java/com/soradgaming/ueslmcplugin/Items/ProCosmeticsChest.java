@@ -1,6 +1,8 @@
 package com.soradgaming.ueslmcplugin.Items;
 
+import com.soradgaming.ueslmcplugin.UESLMCPlugin;
 import net.raidstone.wgevents.events.RegionEnteredEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -10,6 +12,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -21,6 +24,12 @@ import java.util.Collections;
 import java.util.Objects;
 
 public class ProCosmeticsChest implements Listener {
+
+    private final UESLMCPlugin plugin;
+
+    public ProCosmeticsChest() {
+        plugin = UESLMCPlugin.plugin;
+    }
 
     //Chest Click Usage
     @EventHandler
@@ -40,18 +49,6 @@ public class ProCosmeticsChest implements Listener {
             }
         }
     }
-
-    /*
-    //Prevent Moving the Chest - Error in Console (can move in hot bar but not out of player inventory) - Broken
-    @EventHandler
-    public void onChestMoveItems(InventoryClickEvent event) {
-        ItemStack chest = event.getCurrentItem();
-        assert chest != null;
-        if (chest.isSimilar(chest) && chest.hasItemMeta() && Objects.requireNonNull(chest.getItemMeta()).getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', "&aCosmetic Menu &7(Right-click)")) && event.getSlot() == event.getRawSlot()) {
-            event.setCancelled(true);
-        }
-    }
-    */
 
     //Prevent Dropping the Chest
     @EventHandler
@@ -78,23 +75,26 @@ public class ProCosmeticsChest implements Listener {
         }
     }
 
-    //Give Chest on Region Change
-    @EventHandler (priority = EventPriority.LOW)
-    public void onRegionEntered(RegionEnteredEvent event) {
+    //Chest Change World Handler
+    @EventHandler (priority = EventPriority.MONITOR)
+    public void onChangeWorld(RegionEnteredEvent event) {
         Player p = event.getPlayer();
-        ItemStack chest = this.Chest();
         String region = event.getRegionName();
+        ItemStack chest = this.Chest();
         assert p != null;
+        boolean regiondata = region.equals("hub") || region.equals("shub") || region.equals("minigames") || region.equals("hglobby");
 
-        if (region.equals("hub") || region.equals("shub") || region.equals("minigames") || region.equals("hglobby")) {
-            if (!p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
-                    p.getInventory().setItem(8, chest);
-                    System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
-
-            }
-        } else if (p.getInventory().contains(this.Chest()) || p.getInventory().getItemInOffHand().isSimilar(chest)) {
-            p.getInventory().removeItem(this.Chest());
-            System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
+        if (regiondata && !p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
+            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
+                p.getInventory().setItem(8, this.Chest());
+            }, 500);
+        }
+        if (!regiondata && (p.getInventory().contains(this.Chest()) || p.getInventory().getItemInOffHand().isSimilar(chest))) {
+            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest world. Removing compass or making it invalid now.");
+                p.getInventory().removeItem(this.Chest());
+            }, 500);
         }
     }
 
