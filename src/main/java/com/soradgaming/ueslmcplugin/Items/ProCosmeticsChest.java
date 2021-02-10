@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -78,7 +79,7 @@ public class ProCosmeticsChest implements Listener {
     }
 
     //Give Chest on Region Change
-    @EventHandler
+    @EventHandler (priority = EventPriority.LOW)
     public void onRegionEntered(RegionEnteredEvent event) {
         Player p = event.getPlayer();
         ItemStack chest = this.Chest();
@@ -88,13 +89,11 @@ public class ProCosmeticsChest implements Listener {
         if (region.equals("hub") || region.equals("shub") || region.equals("minigames") || region.equals("hglobby")) {
             if (!p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
                     p.getInventory().setItem(8, chest);
-                    //p.getInventory().addItem(this.Chest());
                     System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
 
             }
         } else if (p.getInventory().contains(this.Chest()) || p.getInventory().getItemInOffHand().isSimilar(chest)) {
-            //p.getInventory().removeItem(this.Chest());
-            p.getInventory().removeItem(chest);
+            p.getInventory().removeItem(this.Chest());
             System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
         }
     }
