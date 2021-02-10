@@ -21,7 +21,7 @@ import java.util.Objects;
 
 public class ProCosmeticsChest implements Listener {
 
-    //Chest Click Usage - Working
+    //Chest Click Usage
     @EventHandler
     public void onClick(PlayerInteractEvent event) {
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
@@ -31,7 +31,7 @@ public class ProCosmeticsChest implements Listener {
                     event.setCancelled(true);
                     p.performCommand("procosmetics open main");
                 } else {
-                    event.setCancelled(true);
+                    event.setCancelled(false);
                 }
             }
             catch (Exception var3_3) {
@@ -52,7 +52,7 @@ public class ProCosmeticsChest implements Listener {
     }
     */
 
-    //Prevent Dropping the Chest - Working
+    //Prevent Dropping the Chest
     @EventHandler
     public void onDrop(PlayerDropItemEvent event) {
         ItemStack chest = event.getItemDrop().getItemStack();
@@ -61,7 +61,7 @@ public class ProCosmeticsChest implements Listener {
         }
     }
 
-    //Give Chest on Join - Working
+    //Give Chest on Join
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player p = event.getPlayer();
@@ -73,6 +73,7 @@ public class ProCosmeticsChest implements Listener {
             }
         } else {
             System.out.println("[UESL-MCPlugin] A player join error has been thrown. Please contact SoRadGaming if the problem persist.");
+            System.out.println("[UESL-MCPlugin] Maybe player did not load in Hub?");
         }
     }
 

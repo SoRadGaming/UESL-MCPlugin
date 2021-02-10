@@ -4,6 +4,7 @@ import me.ryandw11.ultrachat.api.UltraChatAPI;
 import me.ryandw11.ultrachat.api.channels.ChatChannel;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 
@@ -11,7 +12,7 @@ public class WorldChannel implements Listener {
 
     public static UltraChatAPI chat = new UltraChatAPI();
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.MONITOR)
     public void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
         String worldFrom = event.getFrom().getName();

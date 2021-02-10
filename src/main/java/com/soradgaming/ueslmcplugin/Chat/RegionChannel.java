@@ -5,6 +5,7 @@ import me.ryandw11.ultrachat.api.channels.ChatChannel;
 import net.raidstone.wgevents.events.RegionEnteredEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import java.lang.String;
 
@@ -12,7 +13,7 @@ public class RegionChannel implements Listener {
 
     public static UltraChatAPI chat = new UltraChatAPI();
 
-    @EventHandler
+    @EventHandler (priority = EventPriority.MONITOR)
     public void onRegionEntered(RegionEnteredEvent event) {
         Player player = event.getPlayer();
         String regionName = event.getRegionName();
