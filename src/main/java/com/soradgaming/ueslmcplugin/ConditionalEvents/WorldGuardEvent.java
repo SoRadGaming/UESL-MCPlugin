@@ -1,6 +1,5 @@
 package com.soradgaming.ueslmcplugin.ConditionalEvents;
 
-import com.soradgaming.ueslmcplugin.Items.ProCosmeticsChest;
 import com.soradgaming.ueslmcplugin.UESLMCPlugin;
 import net.raidstone.wgevents.events.RegionEnteredEvent;
 import org.bukkit.*;
