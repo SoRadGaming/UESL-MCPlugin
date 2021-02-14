@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -76,16 +77,16 @@ public class ProCosmeticsChest implements Listener {
         ItemStack chest = this.Chest();
         boolean regionlogic = region.equals("minigames") || region.equals("hub") || region.equals("shub") || region.equals("hglobby");
 
-        if (world.equals("World") || world.equals("Lobbyy")) {
-            if (regionlogic) {
-                if (!p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
-                    System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
-                    p.getInventory().setItem(8, this.Chest());
-                }
+        if (world.equals("World") || world.equals("Lobbyy") && regionlogic) {
+            if (!p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
+                System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
+                p.getInventory().setItem(8, this.Chest());
             }
         } else {
-            System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing compass or making it invalid now.");
-            p.getInventory().removeItem(this.Chest());
+            if (p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
+                System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing compass or making it invalid now.");
+                p.getInventory().removeItem(this.Chest());
+            }
         }
     }
     //Chest Item
