@@ -58,6 +58,9 @@ public final class UESLMCPlugin extends JavaPlugin {
 
         //Load Data
         loadFile();
+
+        //Config
+        registerConfig();
     }
 
     @Override
@@ -108,4 +111,9 @@ public final class UESLMCPlugin extends JavaPlugin {
             }
         }
     }
+
+    private void registerConfig() {
+        saveDefaultConfig();
+    }
+
 }

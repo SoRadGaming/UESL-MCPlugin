@@ -1,0 +1,7 @@
+##############################################
+#              UESL MCPlugin                 #
+##############################################
+#Config for Plugin
+
+#Enable or Disable Custom Procosmetic Chest (Default true)
+Procosmetic_Chest: true
