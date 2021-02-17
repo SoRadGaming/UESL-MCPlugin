@@ -112,6 +112,7 @@ public final class UESLMCPlugin extends JavaPlugin {
         }
     }
 
+    //Config
     private void registerConfig() {
         saveDefaultConfig();
     }
