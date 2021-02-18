@@ -2,6 +2,7 @@ package com.soradgaming.ueslmcplugin.Items;
 
 import com.soradgaming.ueslmcplugin.UESLMCPlugin;
 import net.raidstone.wgevents.events.RegionEnteredEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -80,8 +81,8 @@ public class ProCosmeticsChest implements Listener {
                 }
             } else {
                 if (p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest) && plugin.getConfig().getBoolean("Procosmetic_Chest")) {
-                    System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing compass or making it invalid now.");
-                    p.getInventory().removeItem(this.Chest());
+                    System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
+                    Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(plugin, () -> p.getInventory().removeItem(chest), 10L);
                 }
             }
 
