@@ -66,7 +66,6 @@ public class ProCosmeticsChest implements Listener {
     //Chest Region
     @EventHandler
     public void onChangeRegion(RegionEnteredEvent event) {
-        if (plugin.getConfig().getBoolean("Procosmetic_Chest")) {
             Player p = event.getPlayer();
             String region = event.getRegionName();
             assert p != null;
@@ -74,18 +73,18 @@ public class ProCosmeticsChest implements Listener {
             ItemStack chest = this.Chest();
             boolean regionlogic = region.equals("minigames") || region.equals("hub") || region.equals("shub") || region.equals("hglobby");
 
-            if (world.equals("World") || world.equals("Lobbyy") && regionlogic) {
+            if (world.equals("World") || world.equals("Lobbyy") && regionlogic && plugin.getConfig().getBoolean("Procosmetic_Chest")) {
                 if (!p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
                     System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
                     p.getInventory().setItem(8, this.Chest());
                 }
             } else {
-                if (p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
+                if (p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest) && plugin.getConfig().getBoolean("Procosmetic_Chest")) {
                     System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing compass or making it invalid now.");
                     p.getInventory().removeItem(this.Chest());
                 }
             }
-        }
+
     }
     //Chest Item
     public ItemStack Chest() {
