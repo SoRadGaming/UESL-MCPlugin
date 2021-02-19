@@ -1,8 +1,7 @@
 package com.soradgaming.ueslmcplugin.Items;
 
 import com.soradgaming.ueslmcplugin.UESLMCPlugin;
-import net.raidstone.wgevents.events.RegionEnteredEvent;
-import net.raidstone.wgevents.events.RegionsLeftEvent;
+import net.raidstone.wgevents.events.RegionsChangedEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -21,7 +20,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
 
 public class ProCosmeticsChest implements Listener {
 
@@ -62,44 +60,32 @@ public class ProCosmeticsChest implements Listener {
         if (p.getWorld().getName().equals("Lobbyy") && plugin.getConfig().getBoolean("Procosmetic_Chest")) {
             ItemStack chest = this.Chest();
             if (!p.getInventory().contains(chest)) {
+                p.getInventory().setHeldItemSlot(0);
                 p.getInventory().setItem(8, chest);
                 System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
             }
         }
     }
     //Chest Region
-    @EventHandler //Event Dosent always fire, might use tp event along side
-    public void onChangeRegion(RegionEnteredEvent event) {
-        Player p = event.getPlayer();
-        String region = event.getRegionName();
-        assert p != null;
-        String world = p.getWorld().getName();
-        ItemStack chest = this.Chest();
-        boolean regionlogic = region.equals("minigames") || region.equals("hub") || region.equals("shub") || region.equals("hglobby");
-
-        if (world.equals("World") || world.equals("Lobbyy") && regionlogic && plugin.getConfig().getBoolean("Procosmetic_Chest")) {
-            if (!p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
-                System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
-                p.getInventory().setItem(8, this.Chest());
-            }
-        } else {
-            if (p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest) && plugin.getConfig().getBoolean("Procosmetic_Chest")) {
-                System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
-                Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(plugin, () -> p.getInventory().removeItem(chest), 10L);
-            }
-        }
-    }
     @EventHandler
-    public void OnRegionLeft(RegionsLeftEvent event) {
+    public void OnRegionChange(RegionsChangedEvent event) {
         Player p = Bukkit.getPlayer(event.getUUID());
         ItemStack chest = this.Chest();
-        Set<String> regionsNames = event.getRegionsNames();
+        Set<String> currentRegionsNames = event.getCurrentRegionsNames();
+        Set<String> previousRegionsNames = event.getPreviousRegionsNames();
         assert p != null;
+        String world = p.getWorld().toString();
 
-        if(regionsNames.contains("minigames") || regionsNames.contains("hub") || regionsNames.contains("shub") || regionsNames.contains("hglobby"))
-        {
+        if ((world.equals("World") || world.equals("Lobbyy")) && plugin.getConfig().getBoolean("Procosmetic_Chest") && (currentRegionsNames.contains("minigames") || currentRegionsNames.contains("hub") || currentRegionsNames.contains("shub") || currentRegionsNames.contains("hglobby"))) {
+            if (!p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
+                System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
+                p.getInventory().setHeldItemSlot(0);
+                p.getInventory().setItem(8, this.Chest());
+            }
+        } else if (previousRegionsNames.contains("minigames")) {
             if (p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest) && plugin.getConfig().getBoolean("Procosmetic_Chest")) {
                 System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
+                p.getInventory().setHeldItemSlot(0);
                 p.getInventory().removeItem(chest);
             }
         }
