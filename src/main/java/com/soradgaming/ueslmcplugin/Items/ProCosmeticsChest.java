@@ -76,13 +76,13 @@ public class ProCosmeticsChest implements Listener {
         assert p != null;
         String world = p.getWorld().toString();
 
-        if ((world.equals("World") || world.equals("Lobbyy")) && plugin.getConfig().getBoolean("Procosmetic_Chest") && (currentRegionsNames.contains("minigames") || currentRegionsNames.contains("hub") || currentRegionsNames.contains("shub") || currentRegionsNames.contains("hglobby"))) {
+        if (currentRegionsNames.contains("minigames") || world.equals("Lobbyy") && plugin.getConfig().getBoolean("Procosmetic_Chest")) {
             if (!p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
                 System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
                 p.getInventory().setHeldItemSlot(0);
                 p.getInventory().setItem(8, this.Chest());
             }
-        } else if (previousRegionsNames.contains("minigames")) {
+        } else if (previousRegionsNames.contains("minigames") && world.equals("Lobbyy")) {
             if (p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest) && plugin.getConfig().getBoolean("Procosmetic_Chest")) {
                 System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
                 p.getInventory().setHeldItemSlot(0);

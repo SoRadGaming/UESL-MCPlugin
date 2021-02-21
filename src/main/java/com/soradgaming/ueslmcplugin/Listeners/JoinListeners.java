@@ -2,7 +2,10 @@ package com.soradgaming.ueslmcplugin.Listeners;
 
 import com.soradgaming.ueslmcplugin.UESLMCPlugin;
 import me.ryandw11.ultrachat.util.ChatUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,6 +21,8 @@ public class JoinListeners implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
+        World lobbyy = Bukkit.getServer().getWorld("Lobbyy");
+        Location location = new Location(lobbyy, 1.5, 57.0, 0.5, 90, 0);
         Player player = event.getPlayer();
 
         //Data Handle
@@ -41,10 +46,10 @@ public class JoinListeners implements Listener {
 
         //On Join Welcome Message and TP
         if (!player.hasPlayedBefore()) {
-            player.performCommand("hub");
+            player.teleport(location);
             player.sendTitle(ChatColor.YELLOW + "" + "Welcome",ChatUtil.translateColorCode("#1782FE") + " to UESL World", 20, 60, 20);
         } else {
-            player.performCommand("hub");
+            player.teleport(location);
             player.sendTitle(ChatColor.YELLOW + "" + "Welcome Back",ChatUtil.translateColorCode("#1782FE") + player.getName() + " to UESL World", 20, 60, 20);
         }
     }
