@@ -28,13 +28,6 @@ public class WorldGuardEvent implements Listener  {
         String p = Objects.requireNonNull(event.getPlayer()).getName();
         PlayerRegion = event.getRegionName();
 
-        //Skyblock_Portal
-        if (regionName.equals("skyblock_portal_1") || regionName.equals("skyblock_portal_2") || regionName.equals("skyblock_portal_3") || regionName.equals("skyblock_portal_4") || regionName.equals("skyblock_portal_5") || regionName.equals("skyblock_portal_6")) {
-            assert player != null;
-            player.performCommand("is home");
-            player.sendMessage("Welcome to Skyblock!");
-            player.sendMessage("Use "+ ChatColor.BLUE + "/is " + ChatColor.WHITE + "for skyblock commands");
-        }
         //Skyblock_Death_Loop_Fix
         if (regionName.equals("skyblock_death_box") || regionName.equals("skyblock_death_box_nether")) {
             assert player != null;

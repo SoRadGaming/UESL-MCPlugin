@@ -35,8 +35,13 @@ public class PlayerWorldChangeEvent implements Listener {
                 player.sendMessage("Use /minigames to leave the course and return to minigames");
             }
         }
-        if (worldTo.contains("factions")) {
+        //Factions message
+        if (worldTo.contains("factions") && !worldFrom.contains("factions")) {
             player.sendMessage("Use "+ ChatColor.RED + "/f " + ChatColor.WHITE + "for faction commands");
+        }
+        //Skyblock message
+        if (worldTo.contains("IridiumSkyblock") && !worldFrom.contains("IridiumSkyblock")) {
+            player.sendMessage("Use "+ ChatColor.BLUE + "/is " + ChatColor.WHITE + "for skyblock commands");
         }
     }
 }
