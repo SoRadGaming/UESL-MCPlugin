@@ -5,3 +5,7 @@
 
 #Enable or Disable Custom Procosmetic Chest (Default true)
 Procosmetic_Chest: true
+#Enable or Disable Chat per world (Default true)
+Chat_Changer: true
+#At what player number should chat be global or bungee (Int) (Default 16)
+Chat_Change_Value: 16

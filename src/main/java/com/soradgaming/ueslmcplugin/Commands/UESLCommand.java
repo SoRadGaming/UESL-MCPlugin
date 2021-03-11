@@ -1,22 +1,29 @@
 package com.soradgaming.ueslmcplugin.Commands;
 
+import com.soradgaming.ueslmcplugin.Chat.Chat;
 import com.soradgaming.ueslmcplugin.UESLMCPlugin;
+import me.ryandw11.ultrachat.api.UltraChatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+import static com.soradgaming.ueslmcplugin.ConditionalEvents.WorldGuardEvent.PlayerRegion;
+
 public class UESLCommand implements CommandExecutor {
 
     private final UESLMCPlugin plugin;
+
     public UESLCommand() {
         plugin = UESLMCPlugin.plugin;
     }
+    public static UltraChatAPI chat = new UltraChatAPI();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String s, String[] args) {
@@ -47,6 +54,7 @@ public class UESLCommand implements CommandExecutor {
                 plugin.saveFile();
                 plugin.reloadConfig();
                 plugin.loadFile();
+                com.soradgaming.ueslmcplugin.Chat.Chat.ChatChanger();
                 plugin.getLogger().info("Reloaded");
                 sender.sendMessage(ChatColor.GREEN + "Reloaded");
             } else {

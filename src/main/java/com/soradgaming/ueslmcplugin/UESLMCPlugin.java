@@ -1,11 +1,10 @@
 package com.soradgaming.ueslmcplugin;
 
+import com.soradgaming.ueslmcplugin.Chat.Chat;
 import com.soradgaming.ueslmcplugin.Commands.CommandTabCompleter;
 import com.soradgaming.ueslmcplugin.Commands.UESLCommand;
 import com.soradgaming.ueslmcplugin.ConditionalEvents.PlayerWorldChangeEvent;
 import com.soradgaming.ueslmcplugin.ConditionalEvents.WorldGuardEvent;
-import com.soradgaming.ueslmcplugin.Chat.RegionChannel;
-import com.soradgaming.ueslmcplugin.Chat.WorldChannel;
 import com.soradgaming.ueslmcplugin.Items.ProCosmeticsChest;
 import com.soradgaming.ueslmcplugin.Listeners.JoinListeners;
 import org.bukkit.Bukkit;
@@ -75,8 +74,7 @@ public final class UESLMCPlugin extends JavaPlugin {
         Objects.requireNonNull(getCommand("uesl")).setExecutor(new UESLCommand());
         Objects.requireNonNull(getCommand("uesl")).setTabCompleter(new CommandTabCompleter());
         // Registers Events
-        Bukkit.getServer().getPluginManager().registerEvents(new RegionChannel(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new WorldChannel(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new Chat(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new WorldGuardEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new JoinListeners(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new PlayerWorldChangeEvent(), this);
