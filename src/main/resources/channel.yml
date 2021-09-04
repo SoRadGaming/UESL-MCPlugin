@@ -1,0 +1,57 @@
+##############################################
+#              UESL MCPlugin                 #
+##############################################
+#Channel name {Note: it is better practice to use lowercase}
+#
+#Notice: Turn the server off then edit ths config!
+#
+#CASE SENSITIVE!
+#
+#Channel
+factions:
+    #Channel name in UltraChat
+    channel_name: 'factions'
+    #Region
+    region_chat: false
+    #Region Name in WorldGuard
+    region_name: []
+    #World
+    world_chat: true
+    #World Name
+    world_name: [factions, factions_nether, faction_the_end]
+#Channel
+survival:
+    #Channel name in UltraChat
+    channel_name: 'survival'
+    #Region
+    region_chat: false
+    #Region Name in WorldGuard
+    region_name: []
+    #World
+    world_chat: true
+    #World Name
+    world_name: [survival, survival_nether, survival_the_end]
+#Channel
+creative:
+    #Channel name in UltraChat
+    channel_name: 'creative'
+    #Region
+    region_chat: false
+    #Region Name in WorldGuard
+    region_name: []
+    #World
+    world_chat: true
+    #World Name
+    world_name: [Creative]
+#Channel
+hub:
+    #Channel name in UltraChat
+    channel_name: 'hub'
+    #Region
+    region_chat: true
+    #Region Name in WorldGuard
+    region_name: [hub]
+    #World
+    world_chat: false
+    #World Name
+    world_name: []

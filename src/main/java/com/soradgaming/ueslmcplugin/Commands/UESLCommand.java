@@ -1,5 +1,6 @@
 package com.soradgaming.ueslmcplugin.Commands;
 
+import com.soradgaming.ueslmcplugin.Builder.ChannelBuilder;
 import com.soradgaming.ueslmcplugin.Chat.Chat;
 import com.soradgaming.ueslmcplugin.UESLMCPlugin;
 import me.ryandw11.ultrachat.api.UltraChatAPI;
@@ -52,11 +53,20 @@ public class UESLCommand implements CommandExecutor {
         } else if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
             if (sender.isOp()) {
                 plugin.saveFile();
+                plugin.saveChannel();
                 plugin.reloadConfig();
                 plugin.loadFile();
+                plugin.loadChannel();
                 com.soradgaming.ueslmcplugin.Chat.Chat.ChatChanger();
                 plugin.getLogger().info("Reloaded");
                 sender.sendMessage(ChatColor.GREEN + "Reloaded");
+            } else {
+                sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
+                return true;
+            }
+        }  else if (args.length == 1 && args[0].equalsIgnoreCase("channel")) {
+            if (sender.isOp()) {
+                plugin.getLogger().info("Channels Command");
             } else {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
                 return true;
@@ -74,8 +84,8 @@ public class UESLCommand implements CommandExecutor {
                 boolean parkourparadise_completed_boolean = plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".parkourparadise_completed");
 
                 sender.sendMessage(ChatColor.BLUE + player.getName() + ChatColor.WHITE + " Data: ");
-                sender.sendMessage(ChatColor.DARK_GREEN + "planetparkour_completed: " + ChatColor.YELLOW + Boolean.toString(planetparkour_completed_boolean));
-                sender.sendMessage(ChatColor.DARK_GREEN + "parkourparadise_completed: " + ChatColor.YELLOW + Boolean.toString(parkourparadise_completed_boolean));
+                sender.sendMessage(ChatColor.DARK_GREEN + "planetparkour_completed: " + ChatColor.YELLOW + planetparkour_completed_boolean);
+                sender.sendMessage(ChatColor.DARK_GREEN + "parkourparadise_completed: " + ChatColor.YELLOW + parkourparadise_completed_boolean);
 
             } else {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
@@ -94,7 +104,7 @@ public class UESLCommand implements CommandExecutor {
                     if (args[2].equals("planetparkour_completed") || args[2].equals("parkourparadise_completed")) {
                         plugin.data.set(player.getUniqueId().toString() + "." + args[3], TorF);
                         plugin.saveFile();
-                        player.sendMessage("Set " + ChatColor.BLUE + player.getName() + " " + ChatColor.DARK_GREEN + args[2] + " " + ChatColor.YELLOW + Boolean.toString(TorF));
+                        player.sendMessage("Set " + ChatColor.BLUE + player.getName() + " " + ChatColor.DARK_GREEN + args[2] + " " + ChatColor.YELLOW + TorF);
                     } else {
                         sender.sendMessage(ChatColor.RED + "Invalid Data Set");
                         return true;

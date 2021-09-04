@@ -26,6 +26,8 @@ public final class UESLMCPlugin extends JavaPlugin {
     public static UESLMCPlugin plugin;
     public List<UUID> planetparkour_completed = new ArrayList<>();
     public List<UUID> parkourparadise_completed = new ArrayList<>();
+    public File channelFile;
+    public FileConfiguration channel;
     public File dataFile = new File(getDataFolder() + "/data/players.yml");
     public FileConfiguration data = YamlConfiguration.loadConfiguration(dataFile);
 
@@ -58,6 +60,9 @@ public final class UESLMCPlugin extends JavaPlugin {
         //Load Data
         loadFile();
 
+        //Load Channel
+        loadChannel();
+
         //Config
         registerConfig();
     }
@@ -65,6 +70,7 @@ public final class UESLMCPlugin extends JavaPlugin {
     @Override
     public void onDisable() {
         saveFile();
+        saveChannel();
         getLogger().info("The plugin has been disabled correctly!");
     }
 
@@ -107,6 +113,35 @@ public final class UESLMCPlugin extends JavaPlugin {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    //Save the Channel file
+    public void saveChannel() {
+
+        try {
+            channel.save(channelFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+    //Load the Channel file
+    public void loadChannel() {
+        channelFile = new File(getDataFolder(), "channel.yml");
+        if (!channelFile.exists()) {
+            channelFile.getParentFile().mkdirs();
+            saveResource("channel.yml", false);
+        }
+        channel = new YamlConfiguration();
+        try {
+            channel.load(channelFile);
+
+        } catch (IOException | InvalidConfigurationException e) {
+
+            e.printStackTrace();
         }
     }
 
