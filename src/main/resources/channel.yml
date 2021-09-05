@@ -8,50 +8,25 @@
 #CASE SENSITIVE!
 #
 #Channel
-factions:
-    #Channel name in UltraChat
-    channel_name: 'factions'
-    #Region
+global:
+    channel_name: global
     region_chat: false
-    #Region Name in WorldGuard
     region_name: []
-    #World
     world_chat: true
-    #World Name
-    world_name: [factions, factions_nether, faction_the_end]
-#Channel
-survival:
-    #Channel name in UltraChat
-    channel_name: 'survival'
-    #Region
+    world_name:
+        - world
+        - world_the_end
+nether:
+    channel_name: nether
     region_chat: false
-    #Region Name in WorldGuard
     region_name: []
-    #World
     world_chat: true
-    #World Name
-    world_name: [survival, survival_nether, survival_the_end]
-#Channel
-creative:
-    #Channel name in UltraChat
-    channel_name: 'creative'
-    #Region
-    region_chat: false
-    #Region Name in WorldGuard
-    region_name: []
-    #World
-    world_chat: true
-    #World Name
-    world_name: [Creative]
-#Channel
+    world_name:
+        - world_nether
 hub:
-    #Channel name in UltraChat
-    channel_name: 'hub'
-    #Region
+    channel_name: hub
     region_chat: true
-    #Region Name in WorldGuard
-    region_name: [hub]
-    #World
+    region_name:
+        - hub
     world_chat: false
-    #World Name
     world_name: []

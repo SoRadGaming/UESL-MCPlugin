@@ -21,29 +21,32 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 
-import java.net.http.WebSocket;
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
 import java.util.List;
-import java.util.Scanner;
 
 
-public class Chat implements WebSocket.Listener, Listener {
-    private static UESLMCPlugin plugin;
-    public int playerCount;
-    public static UltraChatAPI chat = new UltraChatAPI();
+public class Chat implements Listener {
+    private static List<String> regionChannels;
+    private static List<String> worldChannels;
+    private static int rcn;
+    private static int wcn;
+    private final UESLMCPlugin plugin;
 
     public Chat() {
         plugin = UESLMCPlugin.plugin;
     }
 
+    public int playerCount;
+    public static UltraChatAPI chat = new UltraChatAPI();
+
     @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
+    public void onJoin(PlayerJoinEvent event) throws FileNotFoundException {
         playerCount = Bukkit.getServer().getOnlinePlayers().size();
         ChatChanger();
     }
 
     @EventHandler
-    public void onLeave(PlayerQuitEvent event) {
+    public void onLeave(PlayerQuitEvent event) throws FileNotFoundException {
         playerCount = Bukkit.getServer().getOnlinePlayers().size();
         ChatChanger();
         if (playerCount == plugin.getConfig().getInt("Chat_Change_Value") - 1) {
@@ -51,174 +54,39 @@ public class Chat implements WebSocket.Listener, Listener {
         }
     }
 
-    /*
-    //Change All Players
-    public static void ChatChanger() {
-        UESLMCPlugin plugin;
-        {
-            plugin = UESLMCPlugin.plugin;
-        }
-        int playerCount = Bukkit.getServer().getOnlinePlayers().size();
-
-        if (plugin.getConfig().getBoolean("Chat_Changer")) {
-            if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
-                for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
-                    changeChannel(onlinePlayers, "global");
-                }
-            } else if (playerCount >= plugin.getConfig().getInt("Chat_Change_Value") && playerCount - 1 < plugin.getConfig().getInt("Chat_Change_Value")) {
-                Bukkit.broadcastMessage("Server Chat Changing to Bungee");
-                for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
-                    String world = onlinePlayers.getWorld().getName();
-
-                    Location loc = BukkitAdapter.adapt(onlinePlayers.getLocation());
-                    RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
-                    RegionQuery query = container.createQuery();
-                    ApplicableRegionSet set = query.getApplicableRegions(loc);
-
-                    for (ProtectedRegion region : set) {
-                        String regionName = region.getId();
-                        //Region Channel
-                        if (plugin.getConfig().getBoolean("Chat_Changer")) {
-                            if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
-                                if (!regionName.equals("castle-defenders") && !regionName.equals("paintball")) {
-                                    changeChannel(onlinePlayers, "global");
-                                } else {
-                                    switch (regionName) {
-                                        case "castle-defenders":
-                                        case "paintball":
-                                            changeChannel(onlinePlayers, regionName);
-                                            break;
-                                    }
-                                }
-                            } else {
-                                //Channel Event
-                                switch (regionName) {
-                                    case "hub":
-                                    case "minigames":
-                                    case "shub":
-                                    case "hglobby":
-                                    case "duels_arena":
-                                    case "spleef":
-                                    case "build_battle":
-                                    case "castle-defenders":
-                                    case "tntrun":
-                                    case "paintball":
-                                        changeChannel(onlinePlayers, regionName);
-                                        break;
-                                }
-                            }
-                        }
-                    }
-
-                    //World Channel
-                    if (plugin.getConfig().getBoolean("Chat_Changer")) {
-                        if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
-                            changeChannel(onlinePlayers, "global");
-                        } else {
-                            if (world.startsWith("factions")) {
-                                changeChannel(onlinePlayers, "factions");
-                            } else if (world.equals("Creative")) {
-                                changeChannel(onlinePlayers, "creative");
-                            } else if (world.startsWith("survival")) {
-                                changeChannel(onlinePlayers, "survival");
-                            } else if (world.equals("Breeze2")) {
-                                changeChannel(onlinePlayers, "Breeze2");
-                            } else if ((world.startsWith("IridiumSkyblock"))) {
-                                changeChannel(onlinePlayers, "IridiumSkyblock");
-                            } else if (world.equals("PlanetParkour")) {
-                                changeChannel(onlinePlayers, "PlanetParkour");
-                            } else if (world.equals("ParkourParadise")) {
-                                changeChannel(onlinePlayers, "ParkourParadise");
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onRegionEntered(RegionEnteredEvent event) {
-        Player player = event.getPlayer();
-        String regionName = event.getRegionName();
-        int playerCount = Bukkit.getServer().getOnlinePlayers().size();
-
-        if (plugin.getConfig().getBoolean("Chat_Changer")) {
-            if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
-                if (!regionName.equals("castle-defenders") && !regionName.equals("paintball")) {
-                    changeChannel(player, "global");
-                } else {
-                    switch (regionName) {
-                        case "castle-defenders":
-                        case "paintball":
-                            changeChannel(player, regionName);
-                            break;
-                    }
-                }
-            } else {
-                //Channel Event
-                switch (regionName) {
-                    case "hub":
-                    case "minigames":
-                    case "shub":
-                    case "hglobby":
-                    case "duels_arena":
-                    case "spleef":
-                    case "build_battle":
-                    case "castle-defenders":
-                    case "tntrun":
-                    case "paintball":
-                        changeChannel(player, regionName);
-                        break;
-                }
-            }
-        }
-    }
-    */
-
     public static void changeChannel(Player p, String channel) {
         ChatChannel c = chat.getChannelManager().getChannelByName(channel);
         chat.getChannelManager().setPlayerChannel(p, c);
     }
 
-    //NEW CODE
-
-    //Run on Start to Initialise Channel Data List
-    static ArrayList<String> worldChannels = (ArrayList<String>) plugin.getConfig().get("World_Channels");
-    static ArrayList<String> regionChannels = (ArrayList<String>) plugin.getConfig().get("Region_Channels");
-
-    //Counts amount of World Channels in the Config (INT)
-    public static int worldChannelsNumber() {
-        int c = 0;
-        Scanner sc = new Scanner((Readable) worldChannels);
-        while(sc.hasNext())
-        {
-            sc.next();
-            c++;
-        }
-        return c;
-    }
-
-    //Counts amount of Regional Channels in the Config (INT)
-    public static int regionChannelsNumber() {
-        int c = 0;
-        Scanner sc = new Scanner((Readable) regionChannels);
-        while(sc.hasNext())
-        {
-            sc.next();
-            c++;
-        }
-        return c;
-    }
 
     //Grab the Data of a Selected Channel to see its properties (Placeholder/ Internal Use)
-    public void getChannelData(String name) {
-        String channel_name = plugin.channel.getString(name + ".channel_name");
-        boolean region_chat = plugin.channel.getBoolean(name + ".region_chat");
-        List<String> region_name = plugin.channel.getStringList(name + ".region_name");
-        boolean world_chat = plugin.channel.getBoolean(name + ".world_chat");
-        List<String> world_name = plugin.channel.getStringList(name + ".world_name");
+    public static void getChannelData() {
+        final UESLMCPlugin plugin;
+        plugin = UESLMCPlugin.plugin;
+        List<String> channels = plugin.getConfig().getStringList("Channels");
+        int channelTotal = channels.size();
+
+        for (int i = 0; i <= channelTotal; i++) {
+            String name = channels.get(i);
+            boolean region_chat = plugin.channel.getBoolean(name + ".region_chat");
+            boolean world_chat = plugin.channel.getBoolean(name + ".world_chat");
+            if (region_chat) {
+                rcn++;
+                regionChannels.add(name);
+            } else if (world_chat) {
+                wcn++;
+                worldChannels.add(name);
+            } else {
+                plugin.getLogger().info("Channel File Has Wrong Data");
+            }
+        }
+
+        if (channelTotal == rcn + wcn) {
+            plugin.getLogger().info("Channel File Has Initialised Correctly");
+        } else {
+            plugin.getLogger().info("Channel File Has Wrong Data, Region and World Channel Mismatch");
+        }
     }
 
     //Handler for World Channels
@@ -227,14 +95,13 @@ public class Chat implements WebSocket.Listener, Listener {
         Player player = event.getPlayer();
         String worldTo = player.getWorld().getName();
         int playerCount = Bukkit.getServer().getOnlinePlayers().size();
-        int wcn = worldChannelsNumber();
 
         if (plugin.getConfig().getBoolean("Chat_Changer")) {
             if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
                 changeChannel(player, "global");
             } else {
                 for (int i = 0; wcn <= i; i++) {
-                    String name = worldChannels.get(i);
+                    String name = worldChannels.toString();
                     int worldNumber = plugin.channel.getStringList(name + ".world_name").size();
                     String channel_name = plugin.channel.getString(name + ".channel_name");
                     for (int w = 0; worldNumber <= w; w++) {
@@ -255,14 +122,13 @@ public class Chat implements WebSocket.Listener, Listener {
         Player player = event.getPlayer();
         String regionName = event.getRegionName();
         int playerCount = Bukkit.getServer().getOnlinePlayers().size();
-        int rcn = regionChannelsNumber();
 
         if (plugin.getConfig().getBoolean("Chat_Changer")) {
             if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
                 changeChannel(player, "global");
             } else {
                 for (int i = 0; rcn <= i; i++) {
-                    String name = regionChannels.get(i);
+                    String name = regionChannels.toString();
                     int regionNumber = plugin.channel.getStringList(name + ".region_name").size();
                     String channel_name = plugin.channel.getString(name + ".channel_name");
                     for (int w = 0; regionNumber <= w; w++) {
@@ -278,14 +144,12 @@ public class Chat implements WebSocket.Listener, Listener {
     }
 
     //Change All Players
-    public static void ChatChanger() {
+    public static void ChatChanger() throws FileNotFoundException {
         UESLMCPlugin plugin;
         {
             plugin = UESLMCPlugin.plugin;
         }
         int playerCount = Bukkit.getServer().getOnlinePlayers().size();
-        int wcn = worldChannelsNumber();
-        int rcn = regionChannelsNumber();
 
         if (plugin.getConfig().getBoolean("Chat_Changer")) {
             if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
@@ -311,7 +175,7 @@ public class Chat implements WebSocket.Listener, Listener {
                                 changeChannel(player, "global");
                             } else {
                                 for (int i = 0; rcn <= i; i++) {
-                                    String name = regionChannels.get(i);
+                                    String name = regionChannels.toString();
                                     int regionNumber = plugin.channel.getStringList(name + ".region_name").size();
                                     String channel_name = plugin.channel.getString(name + ".channel_name");
                                     for (int w = 0; regionNumber <= w; w++) {
@@ -332,7 +196,7 @@ public class Chat implements WebSocket.Listener, Listener {
                             changeChannel(player, "global");
                         } else {
                             for (int i = 0; wcn <= i; i++) {
-                                String name = worldChannels.get(i);
+                                String name = worldChannels.toString();
                                 int worldNumber = plugin.channel.getStringList(name + ".world_name").size();
                                 String channel_name = plugin.channel.getString(name + ".channel_name");
                                 for (int w = 0; worldNumber <= w; w++) {

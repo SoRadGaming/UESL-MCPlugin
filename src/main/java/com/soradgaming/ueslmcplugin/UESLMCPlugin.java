@@ -54,9 +54,6 @@ public final class UESLMCPlugin extends JavaPlugin {
             throw new RuntimeException("Could not find WorldGuardEvents! Plugin can not work without it!");
         }
 
-        //Load EventHandler and Commands
-        loadMethod();
-
         //Load Data
         loadFile();
 
@@ -65,6 +62,11 @@ public final class UESLMCPlugin extends JavaPlugin {
 
         //Config
         registerConfig();
+
+        //Load EventHandler and Commands
+        loadMethod();
+
+        com.soradgaming.ueslmcplugin.Chat.Chat.getChannelData();
     }
 
     @Override
@@ -74,7 +76,7 @@ public final class UESLMCPlugin extends JavaPlugin {
         getLogger().info("The plugin has been disabled correctly!");
     }
 
-    //Loads all of the Events and Commands.
+    //Loads all of the Events and Commands
     public void loadMethod() {
         //Registers Commands
         Objects.requireNonNull(getCommand("uesl")).setExecutor(new UESLCommand());
@@ -135,6 +137,7 @@ public final class UESLMCPlugin extends JavaPlugin {
             channelFile.getParentFile().mkdirs();
             saveResource("channel.yml", false);
         }
+
         channel = new YamlConfiguration();
         try {
             channel.load(channelFile);

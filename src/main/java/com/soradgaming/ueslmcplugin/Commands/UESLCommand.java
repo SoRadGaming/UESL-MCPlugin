@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.FileNotFoundException;
 import java.util.Objects;
 
 import static com.soradgaming.ueslmcplugin.ConditionalEvents.WorldGuardEvent.PlayerRegion;
@@ -57,7 +58,11 @@ public class UESLCommand implements CommandExecutor {
                 plugin.reloadConfig();
                 plugin.loadFile();
                 plugin.loadChannel();
-                com.soradgaming.ueslmcplugin.Chat.Chat.ChatChanger();
+                try {
+                    Chat.ChatChanger();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 plugin.getLogger().info("Reloaded");
                 sender.sendMessage(ChatColor.GREEN + "Reloaded");
             } else {
