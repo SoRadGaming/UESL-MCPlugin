@@ -16,7 +16,7 @@ public class CommandTabCompleter implements TabCompleter {
         if(cmd.getName().equalsIgnoreCase("uesl")){
             ArrayList<String> completions = new ArrayList<>();
             if (args.length == 1) {
-                completions = new ArrayList<>(Arrays.asList("data", "help", "reload", "edit"));
+                completions = new ArrayList<>(Arrays.asList("data", "help", "reload", "edit", "channel"));
                 completions = getApplicableTabCompletes(args[0], completions);
             } else if (args.length == 2) {
                     if (args[0].equals("data") || args[0].equals("edit")) {

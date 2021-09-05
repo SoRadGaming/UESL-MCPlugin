@@ -9,3 +9,14 @@ Procosmetic_Chest: true
 Chat_Changer: true
 #At what player number should chat be global or bungee (Int) (Default 16)
 Chat_Change_Value: 16
+
+#Channel List World (Same as UltraChat)
+World_Channels:
+  - global
+  - nether
+
+#Channel List Region (Same as UltraChat)
+Region_Channels:
+  - hub
+
+#END
