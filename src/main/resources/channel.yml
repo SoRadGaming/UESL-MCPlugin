@@ -7,7 +7,7 @@
 #
 #CASE SENSITIVE!
 #
-#Channel
+#Channel (to disable chat add world/region to disable region)
 global:
     channel_name: global
     region_chat: false
@@ -16,13 +16,20 @@ global:
     world_name:
         - world
         - world_the_end
-nether:
-    channel_name: nether
+disableregion:
+    channel_name: disableregion
+    region_chat: true
+    region_name:
+        - disable_chat_region
+    world_chat: false
+    world_name: []
+disableworld:
+    channel_name: disableworld
     region_chat: false
     region_name: []
-    world_chat: true
+    world_chat: false
     world_name:
-        - world_nether
+        - disable_chat_world
 hub:
     channel_name: hub
     region_chat: true

@@ -10,8 +10,9 @@ Chat_Changer: true
 #At what player number should chat be global or bungee (Int) (Default 16)
 Chat_Change_Value: 16
 
-#Channel List (Same as UltraChat)
+#Channel List (Same as Channel File)
 Channels:
   - global
-  - nether
+  - disableregion
+  - disableworld
   - hub

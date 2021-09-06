@@ -58,7 +58,6 @@ public class UESLCommand implements CommandExecutor {
                 plugin.reloadConfig();
                 plugin.loadFile();
                 plugin.loadChannel();
-                Chat.getChannelData();
                 try {
                     Chat.ChatChanger();
                 } catch (FileNotFoundException e) {

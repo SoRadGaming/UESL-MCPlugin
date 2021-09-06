@@ -11,6 +11,7 @@ import com.soradgaming.ueslmcplugin.UESLMCPlugin;
 import me.ryandw11.ultrachat.api.UltraChatAPI;
 import me.ryandw11.ultrachat.api.channels.ChatChannel;
 import net.raidstone.wgevents.events.RegionEnteredEvent;
+import net.raidstone.wgevents.events.RegionLeftEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -91,6 +92,12 @@ public class Chat implements Listener {
         }
     }
 
+    //Region Leave Event (MIGHT KILL PERFORMANCE)
+    @EventHandler (priority = EventPriority.HIGHEST)
+    public void regionExit(RegionLeftEvent event) throws FileNotFoundException {
+        ChatChanger();
+    }
+
     //Handler for World Channels
     @EventHandler(priority = EventPriority.MONITOR)
     public void worldChange(PlayerChangedWorldEvent event) {
@@ -160,7 +167,7 @@ public class Chat implements Listener {
                 for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
                     changeChannel(onlinePlayers, "global");
                 }
-            } else if (playerCount >= plugin.getConfig().getInt("Chat_Change_Value") && playerCount - 1 < plugin.getConfig().getInt("Chat_Change_Value")) {
+            } else if (playerCount >= plugin.getConfig().getInt("Chat_Change_Value") && playerCount - 1 <= plugin.getConfig().getInt("Chat_Change_Value")) {
                 Bukkit.broadcastMessage("Server Chat Changing to Bungee");
                 for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
                     Player player = onlinePlayers.getPlayer();
@@ -170,27 +177,6 @@ public class Chat implements Listener {
                     RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
                     RegionQuery query = container.createQuery();
                     ApplicableRegionSet set = query.getApplicableRegions(loc);
-
-                    //World Channel
-                    if (plugin.getConfig().getBoolean("Chat_Changer")) {
-                        if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
-                            changeChannel(player, "global");
-                        } else {
-                            for (int i = 0; wcn >= i + 1; i++) {
-                                String name = worldChannels.get(i);
-                                int worldNumber = plugin.channel.getStringList(name + ".world_name").size();
-                                String channel_name = plugin.channel.getString(name + ".channel_name");
-                                //Loop for all worlds dedicated to channel (name)
-                                for (int w = 0; worldNumber >= w + 1; w++) {
-                                    String world_name = plugin.channel.getStringList(name + ".world_name").get(w);
-                                    if (worldTo.equals(world_name)) {
-                                        changeChannel(player, channel_name);
-                                        return;
-                                    }
-                                }
-                            }
-                        }
-                    }
 
                     for (ProtectedRegion region : set) {
                         String regionName = region.getId();
@@ -210,6 +196,26 @@ public class Chat implements Listener {
                                             changeChannel(player, channel_name);
                                             return;
                                         }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //World Channel
+                    if (plugin.getConfig().getBoolean("Chat_Changer")) {
+                        if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
+                            changeChannel(player, "global");
+                        } else {
+                            for (int i = 0; wcn >= i + 1; i++) {
+                                String name = worldChannels.get(i);
+                                int worldNumber = plugin.channel.getStringList(name + ".world_name").size();
+                                String channel_name = plugin.channel.getString(name + ".channel_name");
+                                //Loop for all worlds dedicated to channel (name)
+                                for (int w = 0; worldNumber >= w + 1; w++) {
+                                    String world_name = plugin.channel.getStringList(name + ".world_name").get(w);
+                                    if (worldTo.equals(world_name)) {
+                                        changeChannel(player, channel_name);
+                                        return;
                                     }
                                 }
                             }
