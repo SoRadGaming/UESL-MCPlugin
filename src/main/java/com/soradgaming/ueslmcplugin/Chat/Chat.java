@@ -218,4 +218,74 @@ public class Chat implements Listener {
             }
         }
     }
+    //Change All Players (Silent) // YES I KNOW THIS IS DUMB
+    public static void ChatChangerSilent() {
+        UESLMCPlugin plugin;
+        {
+            plugin = UESLMCPlugin.plugin;
+        }
+        int playerCount = Bukkit.getServer().getOnlinePlayers().size();
+
+        if (plugin.getConfig().getBoolean("Chat_Changer")) {
+            if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
+                for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
+                    changeChannel(onlinePlayers, "global");
+                }
+            } else if (playerCount >= plugin.getConfig().getInt("Chat_Change_Value") && playerCount - 1 <= plugin.getConfig().getInt("Chat_Change_Value")) {
+                for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
+                    Player player = onlinePlayers.getPlayer();
+                    String worldTo = onlinePlayers.getWorld().getName();
+
+                    Location loc = BukkitAdapter.adapt(onlinePlayers.getLocation());
+                    RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+                    RegionQuery query = container.createQuery();
+                    ApplicableRegionSet set = query.getApplicableRegions(loc);
+
+                    for (ProtectedRegion region : set) {
+                        String regionName = region.getId();
+                        //Region Channel
+                        if (plugin.getConfig().getBoolean("Chat_Changer")) {
+                            if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
+                                changeChannel(player, "global");
+                            } else {
+                                for (int i = 0; rcn >= i + 1; i++) {
+                                    String name = regionChannels.get(i);
+                                    int regionNumber = plugin.channel.getStringList(name + ".region_name").size();
+                                    String channel_name = plugin.channel.getString(name + ".channel_name");
+                                    //Loop for all regions dedicated to channel (name)
+                                    for (int w = 0; regionNumber >= w + 1; w++) {
+                                        String region_name = plugin.channel.getStringList(name + ".region_name").get(w);
+                                        if (regionName.equals(region_name)) {
+                                            changeChannel(player, channel_name);
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //World Channel
+                    if (plugin.getConfig().getBoolean("Chat_Changer")) {
+                        if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
+                            changeChannel(player, "global");
+                        } else {
+                            for (int i = 0; wcn >= i + 1; i++) {
+                                String name = worldChannels.get(i);
+                                int worldNumber = plugin.channel.getStringList(name + ".world_name").size();
+                                String channel_name = plugin.channel.getString(name + ".channel_name");
+                                //Loop for all worlds dedicated to channel (name)
+                                for (int w = 0; worldNumber >= w + 1; w++) {
+                                    String world_name = plugin.channel.getStringList(name + ".world_name").get(w);
+                                    if (worldTo.equals(world_name)) {
+                                        changeChannel(player, channel_name);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

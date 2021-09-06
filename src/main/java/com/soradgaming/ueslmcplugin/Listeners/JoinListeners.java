@@ -4,14 +4,14 @@ import com.soradgaming.ueslmcplugin.UESLMCPlugin;
 import me.ryandw11.ultrachat.util.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import static com.soradgaming.ueslmcplugin.Chat.Chat.changeChannel;
+import java.io.FileNotFoundException;
+
+import static com.soradgaming.ueslmcplugin.Chat.Chat.*;
 
 public class JoinListeners implements Listener {
 
@@ -56,10 +56,10 @@ public class JoinListeners implements Listener {
             player.sendTitle(ChatColor.YELLOW + "" + "Welcome Back",ChatUtil.translateColorCode("#1782FE") + player.getName() + " to UESL World", 20, 60, 20);
         }
 
-        if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
+        if (playerCount <= plugin.getConfig().getInt("Chat_Change_Value")) {
                 changeChannel(player, "global");
         } else {
-            changeChannel(player, "hub");
+            ChatChangerSilent();
         }
     }
 }
