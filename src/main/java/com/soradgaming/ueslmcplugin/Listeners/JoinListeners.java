@@ -23,8 +23,8 @@ public class JoinListeners implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        World lobbyy = Bukkit.getServer().getWorld("Lobbyy");
-        Location location = new Location(lobbyy, 1.5, 57.0, 0.5, 90, 0);
+        //World lobbyy = Bukkit.getServer().getWorld("Lobbyy");
+        //Location location = new Location(lobbyy, 1.5, 57.0, 0.5, 90, 0);
         Player player = event.getPlayer();
         int playerCount =  Bukkit.getServer().getOnlinePlayers().size();
 
@@ -49,10 +49,10 @@ public class JoinListeners implements Listener {
 
         //On Join Welcome Message and TP
         if (!player.hasPlayedBefore()) {
-            player.teleport(location);
+            //player.teleport(location);
             player.sendTitle(ChatColor.YELLOW + "" + "Welcome",ChatUtil.translateColorCode("#1782FE") + " to UESL World", 20, 60, 20);
         } else {
-            player.teleport(location);
+            //player.teleport(location);
             player.sendTitle(ChatColor.YELLOW + "" + "Welcome Back",ChatUtil.translateColorCode("#1782FE") + player.getName() + " to UESL World", 20, 60, 20);
         }
 

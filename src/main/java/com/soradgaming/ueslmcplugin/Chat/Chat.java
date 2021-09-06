@@ -22,12 +22,13 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class Chat implements Listener {
-    private static List<String> regionChannels;
-    private static List<String> worldChannels;
+    private static final List<String> regionChannels = new ArrayList<>();
+    private static final List<String> worldChannels = new ArrayList<>();
     private static int rcn;
     private static int wcn;
     private final UESLMCPlugin plugin;
@@ -59,7 +60,6 @@ public class Chat implements Listener {
         chat.getChannelManager().setPlayerChannel(p, c);
     }
 
-
     //Grab the Data of a Selected Channel to see its properties (Placeholder/ Internal Use)
     public static void getChannelData() {
         final UESLMCPlugin plugin;
@@ -67,7 +67,7 @@ public class Chat implements Listener {
         List<String> channels = plugin.getConfig().getStringList("Channels");
         int channelTotal = channels.size();
 
-        for (int i = 0; i <= channelTotal; i++) {
+        for (int i = 0; i < channelTotal; i++) {
             String name = channels.get(i);
             boolean region_chat = plugin.channel.getBoolean(name + ".region_chat");
             boolean world_chat = plugin.channel.getBoolean(name + ".world_chat");
@@ -84,6 +84,8 @@ public class Chat implements Listener {
 
         if (channelTotal == rcn + wcn) {
             plugin.getLogger().info("Channel File Has Initialised Correctly");
+            plugin.getLogger().info("Region Channels " + regionChannels.toString());
+            plugin.getLogger().info("World Channels " + worldChannels.toString());
         } else {
             plugin.getLogger().info("Channel File Has Wrong Data, Region and World Channel Mismatch");
         }
@@ -100,11 +102,12 @@ public class Chat implements Listener {
             if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
                 changeChannel(player, "global");
             } else {
-                for (int i = 0; wcn <= i; i++) {
-                    String name = worldChannels.toString();
+                for (int i = 0; wcn >= i + 1; i++) {
+                    String name = worldChannels.get(i);
                     int worldNumber = plugin.channel.getStringList(name + ".world_name").size();
                     String channel_name = plugin.channel.getString(name + ".channel_name");
-                    for (int w = 0; worldNumber <= w; w++) {
+                    //Loop for all worlds dedicated to channel (name)
+                    for (int w = 0; worldNumber >= w + 1; w++) {
                         String world_name = plugin.channel.getStringList(name + ".world_name").get(w);
                         if (worldTo.equals(world_name)) {
                             changeChannel(player, channel_name);
@@ -127,11 +130,12 @@ public class Chat implements Listener {
             if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
                 changeChannel(player, "global");
             } else {
-                for (int i = 0; rcn <= i; i++) {
-                    String name = regionChannels.toString();
+                for (int i = 0; rcn >= i + 1; i++) {
+                    String name = regionChannels.get(i);
                     int regionNumber = plugin.channel.getStringList(name + ".region_name").size();
                     String channel_name = plugin.channel.getString(name + ".channel_name");
-                    for (int w = 0; regionNumber <= w; w++) {
+                    //Loop for all regions dedicated to channel (name)
+                    for (int w = 0; regionNumber >= w + 1; w++) {
                         String region_name = plugin.channel.getStringList(name + ".region_name").get(w);
                         if (regionName.equals(region_name)) {
                             changeChannel(player, channel_name);
@@ -167,6 +171,27 @@ public class Chat implements Listener {
                     RegionQuery query = container.createQuery();
                     ApplicableRegionSet set = query.getApplicableRegions(loc);
 
+                    //World Channel
+                    if (plugin.getConfig().getBoolean("Chat_Changer")) {
+                        if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
+                            changeChannel(player, "global");
+                        } else {
+                            for (int i = 0; wcn >= i + 1; i++) {
+                                String name = worldChannels.get(i);
+                                int worldNumber = plugin.channel.getStringList(name + ".world_name").size();
+                                String channel_name = plugin.channel.getString(name + ".channel_name");
+                                //Loop for all worlds dedicated to channel (name)
+                                for (int w = 0; worldNumber >= w + 1; w++) {
+                                    String world_name = plugin.channel.getStringList(name + ".world_name").get(w);
+                                    if (worldTo.equals(world_name)) {
+                                        changeChannel(player, channel_name);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     for (ProtectedRegion region : set) {
                         String regionName = region.getId();
                         //Region Channel
@@ -174,36 +199,17 @@ public class Chat implements Listener {
                             if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
                                 changeChannel(player, "global");
                             } else {
-                                for (int i = 0; rcn <= i; i++) {
-                                    String name = regionChannels.toString();
+                                for (int i = 0; rcn >= i + 1; i++) {
+                                    String name = regionChannels.get(i);
                                     int regionNumber = plugin.channel.getStringList(name + ".region_name").size();
                                     String channel_name = plugin.channel.getString(name + ".channel_name");
-                                    for (int w = 0; regionNumber <= w; w++) {
+                                    //Loop for all regions dedicated to channel (name)
+                                    for (int w = 0; regionNumber >= w + 1; w++) {
                                         String region_name = plugin.channel.getStringList(name + ".region_name").get(w);
                                         if (regionName.equals(region_name)) {
                                             changeChannel(player, channel_name);
                                             return;
                                         }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    //World Channel
-                    if (plugin.getConfig().getBoolean("Chat_Changer")) {
-                        if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
-                            changeChannel(player, "global");
-                        } else {
-                            for (int i = 0; wcn <= i; i++) {
-                                String name = worldChannels.toString();
-                                int worldNumber = plugin.channel.getStringList(name + ".world_name").size();
-                                String channel_name = plugin.channel.getString(name + ".channel_name");
-                                for (int w = 0; worldNumber <= w; w++) {
-                                    String world_name = plugin.channel.getStringList(name + ".world_name").get(w);
-                                    if (worldTo.equals(world_name)) {
-                                        changeChannel(player, channel_name);
-                                        return;
                                     }
                                 }
                             }

@@ -54,6 +54,9 @@ public final class UESLMCPlugin extends JavaPlugin {
             throw new RuntimeException("Could not find WorldGuardEvents! Plugin can not work without it!");
         }
 
+        //Load EventHandler and Commands
+        loadMethod();
+
         //Load Data
         loadFile();
 
@@ -63,9 +66,7 @@ public final class UESLMCPlugin extends JavaPlugin {
         //Config
         registerConfig();
 
-        //Load EventHandler and Commands
-        loadMethod();
-
+        //Channel Data Creation
         com.soradgaming.ueslmcplugin.Chat.Chat.getChannelData();
     }
 

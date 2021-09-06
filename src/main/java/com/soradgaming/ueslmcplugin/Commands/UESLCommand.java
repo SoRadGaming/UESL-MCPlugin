@@ -58,6 +58,7 @@ public class UESLCommand implements CommandExecutor {
                 plugin.reloadConfig();
                 plugin.loadFile();
                 plugin.loadChannel();
+                Chat.getChannelData();
                 try {
                     Chat.ChatChanger();
                 } catch (FileNotFoundException e) {
@@ -65,13 +66,6 @@ public class UESLCommand implements CommandExecutor {
                 }
                 plugin.getLogger().info("Reloaded");
                 sender.sendMessage(ChatColor.GREEN + "Reloaded");
-            } else {
-                sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
-                return true;
-            }
-        }  else if (args.length == 1 && args[0].equalsIgnoreCase("channel")) {
-            if (sender.isOp()) {
-                plugin.getLogger().info("Channels Command");
             } else {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
                 return true;
