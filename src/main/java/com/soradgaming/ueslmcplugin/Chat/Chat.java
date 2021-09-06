@@ -68,8 +68,7 @@ public class Chat implements Listener {
         List<String> channels = plugin.getConfig().getStringList("Channels");
         int channelTotal = channels.size();
 
-        for (int i = 0; i < channelTotal; i++) {
-            String name = channels.get(i);
+        for (String name : channels) {
             boolean region_chat = plugin.channel.getBoolean(name + ".region_chat");
             boolean world_chat = plugin.channel.getBoolean(name + ".world_chat");
             if (region_chat) {
@@ -90,12 +89,6 @@ public class Chat implements Listener {
         } else {
             plugin.getLogger().info("Channel File Has Wrong Data, Region and World Channel Mismatch");
         }
-    }
-
-    //Region Leave Event (MIGHT KILL PERFORMANCE)
-    @EventHandler (priority = EventPriority.HIGHEST)
-    public void regionExit(RegionLeftEvent event) throws FileNotFoundException {
-        ChatChanger();
     }
 
     //Handler for World Channels
