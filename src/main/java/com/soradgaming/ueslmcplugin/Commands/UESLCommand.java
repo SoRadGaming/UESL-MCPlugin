@@ -53,7 +53,9 @@ public class UESLCommand implements CommandExecutor {
             if (sender.isOp()) {
                 plugin.saveFile();
                 plugin.saveChannel();
+                plugin.saveParkour();
                 plugin.reloadConfig();
+                plugin.loadParkour();
                 plugin.loadFile();
                 plugin.loadChannel();
                 try {
@@ -70,18 +72,15 @@ public class UESLCommand implements CommandExecutor {
         } else if (args.length == 2 && args[0].equalsIgnoreCase("data")) {
             if (sender.isOp()) {
                 Player player = Bukkit.getServer().getPlayer(args[1]);
-
-                if (player == null) {
-                    sender.sendMessage(ChatColor.RED + "Player can not be null!");
-                    return true;
-                }
-
-                boolean planetparkour_completed_boolean = plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".planetparkour_completed");
-                boolean parkourparadise_completed_boolean = plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".parkourparadise_completed");
+                assert player != null;
 
                 sender.sendMessage(ChatColor.BLUE + player.getName() + ChatColor.WHITE + " Data: ");
-                sender.sendMessage(ChatColor.DARK_GREEN + "planetparkour_completed: " + ChatColor.YELLOW + planetparkour_completed_boolean);
-                sender.sendMessage(ChatColor.DARK_GREEN + "parkourparadise_completed: " + ChatColor.YELLOW + parkourparadise_completed_boolean);
+
+                for (String name : parkour) {
+                    String parkour_name = plugin.parkour.getString(name + ".parkour_name");
+                    String data_name = plugin.parkour.getString(name + ".data_name");
+                    sender.sendMessage(ChatColor.DARK_GREEN + parkour_name + ": " + ChatColor.YELLOW + plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + "." + data_name));
+                }
 
             } else {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
@@ -89,23 +88,25 @@ public class UESLCommand implements CommandExecutor {
             }
         } else if (args.length == 4 && args[0].equalsIgnoreCase("edit")) {
             if (sender.isOp()) {
-                    Player player = Bukkit.getServer().getPlayer(args[1]);
-                    boolean TorF = Boolean.parseBoolean(args[3]);
+                Player player = Bukkit.getServer().getPlayer(args[1]);
+                boolean TorF = Boolean.parseBoolean(args[3]);
 
-                    if (player == null) {
+                if (player == null) {
                         sender.sendMessage(ChatColor.RED + "Player can not be null!");
                         return true;
                     }
 
-                    if (args[2].equals("planetparkour_completed") || args[2].equals("parkourparadise_completed")) {
-                        plugin.data.set(player.getUniqueId().toString() + "." + args[3], TorF);
+                for (String name : parkour) {
+                    if (args[2].equals(name)) {
+                        String data_name = plugin.parkour.getString(name + ".data_name");
+                        plugin.data.set(player.getUniqueId().toString() + "." + data_name, TorF);
                         plugin.saveFile();
-                        player.sendMessage("Set " + ChatColor.BLUE + player.getName() + " " + ChatColor.DARK_GREEN + args[2] + " " + ChatColor.YELLOW + TorF);
+                        player.sendMessage("Set " + ChatColor.BLUE + player.getName() + " " + ChatColor.DARK_GREEN + "." + data_name + " " + ChatColor.YELLOW + TorF);
                     } else {
                         sender.sendMessage(ChatColor.RED + "Invalid Data Set");
                         return true;
                     }
-
+                }
             } else {
                 sender.sendMessage(ChatColor.RED + "You don't have permission to do that");
                 return true;
