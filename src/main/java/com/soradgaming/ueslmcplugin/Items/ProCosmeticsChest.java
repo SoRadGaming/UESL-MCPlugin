@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -25,7 +26,7 @@ public class ProCosmeticsChest implements Listener {
 
     private final UESLMCPlugin plugin;
 
-    //This Code should not be required and be used in the Procometic plugin
+    //This Code should not be required and be used in the Procosmetic plugin
     public ProCosmeticsChest() {
         plugin = UESLMCPlugin.plugin;
     }
@@ -54,6 +55,18 @@ public class ProCosmeticsChest implements Listener {
             event.setCancelled(true);
         }
     }
+
+    /*
+    //Prevent Dropping the Chest on Death
+    @EventHandler
+    public void onDeathDrop(PlayerDeathEvent event) {
+        ItemStack chest = event.getDrops().get(8);
+        if (chest.isSimilar(chest) && chest.hasItemMeta() && Objects.requireNonNull(chest.getItemMeta()).getDisplayName().equals(ChatColor.translateAlternateColorCodes('&', "&aCosmetic Menu &7(Right-click)"))) {
+            chest.setData();
+        }
+    }
+     */
+
     //Give Chest on Join
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {

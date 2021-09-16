@@ -23,8 +23,8 @@ import java.util.UUID;
 public final class UESLMCPlugin extends JavaPlugin {
 
     public static UESLMCPlugin plugin;
-    public List<UUID> planetparkour_completed = new ArrayList<>();
-    public List<UUID> parkourparadise_completed = new ArrayList<>();
+    // List<UUID> planetparkour_completed = new ArrayList<>();
+    //public List<UUID> parkourparadise_completed = new ArrayList<>();
     public File channelFile;
     public FileConfiguration channel;
     public File parkourFile;
