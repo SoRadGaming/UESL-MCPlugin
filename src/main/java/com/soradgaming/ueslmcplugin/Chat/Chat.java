@@ -79,7 +79,7 @@ public class Chat implements Listener {
                 worldChannels.add(name);
             }
         }
-            plugin.getLogger().info("Channel File Has Wrong Data, Region and World Channel Mismatch");
+            plugin.getLogger().info("Channel Data");
             plugin.getLogger().info("Region Channels [" + rcn + "] " + regionChannels.toString());
             plugin.getLogger().info("World Channels [" + wcn + "] " + worldChannels.toString());
 
