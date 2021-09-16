@@ -20,7 +20,7 @@ public class WorldGuardEvent implements Listener  {
 
     public static String PlayerRegion;
 
-    //Event WorldGuard Region Enter
+    //Event WorldGuard Region Enter for Parkour
     @EventHandler
     public void onRegionEntered(RegionEnteredEvent event) {
         Player player = event.getPlayer();
@@ -28,32 +28,7 @@ public class WorldGuardEvent implements Listener  {
         String p = Objects.requireNonNull(event.getPlayer()).getName();
         PlayerRegion = event.getRegionName();
 
-        //Skyblock_Death_Loop_Fix
-        if (regionName.equals("skyblock_death_box") || regionName.equals("skyblock_death_box_nether")) {
-            assert player != null;
-            player.performCommand("is home");
-        }
-        //Dues Gamemode
-        if (regionName.equals("duels_arena")) {
-            assert player != null;
-            if (player.getGameMode() != GameMode.SPECTATOR) {
-                player.setGameMode(GameMode.ADVENTURE);
-            }
-        }
-        //SecretHub Parkour Finish
-        if (regionName.equals("shub_portal")) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "lp user " + p + " permission set essentials.warps.secrethub true");
-            assert player != null;
-            player.sendTitle(ChatColor.BLUE + "" + "Congratulations", "", 10, 70, 20);
-            player.sendMessage("Use /shub to get here in the future");
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "warp secrethub " + p);
-        }
-        //ParkourParadise Portal
-        if (regionName.equals("parkourparadise_portal")) {
-            assert player != null;
-            player.performCommand("pa join parkourparadise");
-        }
-        //Planet Parkour End
+        //Planet Parkour End (Database Update)
         if (regionName.equals("planetparkour_end")) {
             if(!plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".planetparkour_completed")) {
                 plugin.data.set(player.getUniqueId().toString() + ".planetparkour_completed", true);
@@ -67,7 +42,7 @@ public class WorldGuardEvent implements Listener  {
                 player.sendMessage("You have already claimed this prize!");
             }
         }
-        //Parkour Paradise End
+        //Parkour Paradise End (Database Update)
         if (regionName.equals("parkourparadise_end")) {
             if (!plugin.data.getBoolean(Objects.requireNonNull(player).getUniqueId().toString() + ".parkourparadise_completed")) {
                 plugin.data.set(player.getUniqueId().toString() + ".parkourparadise_completed", true);

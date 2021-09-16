@@ -25,6 +25,7 @@ public class ProCosmeticsChest implements Listener {
 
     private final UESLMCPlugin plugin;
 
+    //This Code should not be required and be used in the Procometic plugin
     public ProCosmeticsChest() {
         plugin = UESLMCPlugin.plugin;
     }
