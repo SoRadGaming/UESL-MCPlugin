@@ -77,18 +77,12 @@ public class Chat implements Listener {
             } else if (world_chat) {
                 wcn++;
                 worldChannels.add(name);
-            } else {
-                plugin.getLogger().info("Channel File Has Wrong Data");
             }
         }
-
-        if (channelTotal == rcn + wcn) {
-            plugin.getLogger().info("Channel File Has Initialised Correctly");
-            plugin.getLogger().info("Region Channels " + regionChannels.toString());
-            plugin.getLogger().info("World Channels " + worldChannels.toString());
-        } else {
             plugin.getLogger().info("Channel File Has Wrong Data, Region and World Channel Mismatch");
-        }
+            plugin.getLogger().info("Region Channels [" + rcn + "] " + regionChannels.toString());
+            plugin.getLogger().info("World Channels [" + wcn + "] " + worldChannels.toString());
+
     }
 
     //Handler for World Channels
