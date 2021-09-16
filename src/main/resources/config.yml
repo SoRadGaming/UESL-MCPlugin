@@ -15,6 +15,11 @@ Enable_Join_Channel: false
 #Channel to set player when Joining Server
 Join_Channel: global
 
+#Parkour Database ID Name (Same as Parkour File)
+Parkour:
+  - PlanetParkour
+  - ParkourParadise
+
 #Channel List (Same as Channel File)
 Channels:
   - global

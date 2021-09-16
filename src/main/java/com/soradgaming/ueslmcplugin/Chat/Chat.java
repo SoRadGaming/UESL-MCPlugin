@@ -66,7 +66,6 @@ public class Chat implements Listener {
         final UESLMCPlugin plugin;
         plugin = UESLMCPlugin.plugin;
         List<String> channels = plugin.getConfig().getStringList("Channels");
-        int channelTotal = channels.size();
 
         for (String name : channels) {
             boolean region_chat = plugin.channel.getBoolean(name + ".region_chat");

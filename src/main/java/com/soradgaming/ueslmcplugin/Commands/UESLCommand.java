@@ -1,6 +1,5 @@
 package com.soradgaming.ueslmcplugin.Commands;
 
-import com.soradgaming.ueslmcplugin.Builder.ChannelBuilder;
 import com.soradgaming.ueslmcplugin.Chat.Chat;
 import com.soradgaming.ueslmcplugin.UESLMCPlugin;
 import me.ryandw11.ultrachat.api.UltraChatAPI;
@@ -10,13 +9,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Objects;
-
-import static com.soradgaming.ueslmcplugin.ConditionalEvents.WorldGuardEvent.PlayerRegion;
 
 public class UESLCommand implements CommandExecutor {
 
@@ -29,6 +26,7 @@ public class UESLCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String s, String[] args) {
+        List<String> parkour = plugin.getConfig().getStringList("Parkour");
 
         if (args.length == 0) {
             sender.sendMessage(ChatColor.BLUE + "=============={" + ChatColor.GREEN + "UESL-MCPlugin" + ChatColor.BLUE + "}==============");

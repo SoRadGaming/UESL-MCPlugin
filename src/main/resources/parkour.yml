@@ -1,0 +1,24 @@
+##############################################
+#              UESL MCPlugin                 #
+##############################################
+#Parkour name {Note: it is better practice to use lowercase}
+#
+#Notice: Turn the server off then edit ths config!
+#
+#CASE SENSITIVE!
+#
+#Parkour List
+PlanetParkour:
+    parkour_name: Planet Parkour
+    data_name: planetparkour_completed
+    region_finish_name: planetparkour_end
+    world_name: PlanetParkour
+    uesl_coin_prize: 250
+    money_prize: 50000
+ParkourParadise:
+    parkour_name: Parkour Paradise
+    data_name: parkourparadise_completed
+    region_finish_name: parkourparadise_end
+    world_name: ParkourParadise
+    uesl_coin_prize: 250
+    money_prize: 50000

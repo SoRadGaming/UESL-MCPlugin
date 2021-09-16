@@ -3,10 +3,9 @@ package com.soradgaming.ueslmcplugin;
 import com.soradgaming.ueslmcplugin.Chat.Chat;
 import com.soradgaming.ueslmcplugin.Commands.CommandTabCompleter;
 import com.soradgaming.ueslmcplugin.Commands.UESLCommand;
-import com.soradgaming.ueslmcplugin.ConditionalEvents.PlayerWorldChangeEvent;
-import com.soradgaming.ueslmcplugin.ConditionalEvents.WorldGuardEvent;
 import com.soradgaming.ueslmcplugin.Items.ProCosmeticsChest;
 import com.soradgaming.ueslmcplugin.Listeners.JoinListeners;
+import com.soradgaming.ueslmcplugin.Parkour.Parkour;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -28,6 +27,8 @@ public final class UESLMCPlugin extends JavaPlugin {
     public List<UUID> parkourparadise_completed = new ArrayList<>();
     public File channelFile;
     public FileConfiguration channel;
+    public File parkourFile;
+    public FileConfiguration parkour;
     public File dataFile = new File(getDataFolder() + "/data/players.yml");
     public FileConfiguration data = YamlConfiguration.loadConfiguration(dataFile);
 
@@ -57,6 +58,9 @@ public final class UESLMCPlugin extends JavaPlugin {
         //Load EventHandler and Commands
         loadMethod();
 
+        //Load Parkour
+        loadParkour();
+
         //Load Data
         loadFile();
 
@@ -74,6 +78,7 @@ public final class UESLMCPlugin extends JavaPlugin {
     public void onDisable() {
         saveFile();
         saveChannel();
+        saveParkour();
         getLogger().info("The plugin has been disabled correctly!");
     }
 
@@ -84,9 +89,8 @@ public final class UESLMCPlugin extends JavaPlugin {
         Objects.requireNonNull(getCommand("uesl")).setTabCompleter(new CommandTabCompleter());
         // Registers Events
         Bukkit.getServer().getPluginManager().registerEvents(new Chat(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new WorldGuardEvent(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new Parkour(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new JoinListeners(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new PlayerWorldChangeEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new ProCosmeticsChest(), this);
     }
 
@@ -142,6 +146,36 @@ public final class UESLMCPlugin extends JavaPlugin {
         channel = new YamlConfiguration();
         try {
             channel.load(channelFile);
+
+        } catch (IOException | InvalidConfigurationException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    //Save the Channel file
+    public void saveParkour() {
+
+        try {
+            parkour.save(parkourFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+
+    }
+
+    //Load the Channel file
+    public void loadParkour() {
+        parkourFile = new File(getDataFolder(), "parkour.yml");
+        if (!parkourFile.exists()) {
+            parkourFile.getParentFile().mkdirs();
+            saveResource("parkour.yml", false);
+        }
+
+        parkour = new YamlConfiguration();
+        try {
+            parkour.load(parkourFile);
 
         } catch (IOException | InvalidConfigurationException e) {
 

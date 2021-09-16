@@ -22,6 +22,17 @@ public class JoinListeners implements Listener {
         Player player = event.getPlayer();
         int playerCount =  Bukkit.getServer().getOnlinePlayers().size();
 
+        //Chat Checker
+        if (playerCount <= plugin.getConfig().getInt("Chat_Change_Value")) {
+            changeChannel(player, "global");
+        } else {
+            if (plugin.getConfig().getBoolean("Enable_Join_Channel")) {
+                changeChannel(player, plugin.getConfig().getString("Join_Channel"));
+            } else {
+                ChatChangerSilent();
+            }
+        }
+
         //Data Handle
         if (plugin.data.contains(player.getUniqueId().toString())) {
             if (!(plugin.data.contains(player.getUniqueId().toString() + ".planetparkour_completed"))) {
@@ -39,17 +50,6 @@ public class JoinListeners implements Listener {
             plugin.planetparkour_completed.add(player.getUniqueId());
             plugin.data.set(player.getUniqueId().toString() + ".parkourparadise_completed", false);
             plugin.saveFile();
-        }
-
-        //Chat Checker
-        if (playerCount <= plugin.getConfig().getInt("Chat_Change_Value")) {
-                changeChannel(player, "global");
-        } else {
-            if (plugin.getConfig().getBoolean("Enable_Join_Channel")) {
-                changeChannel(player, plugin.getConfig().getString("Join_Channel"));
-            } else {
-                ChatChangerSilent();
-            }
         }
     }
 }
