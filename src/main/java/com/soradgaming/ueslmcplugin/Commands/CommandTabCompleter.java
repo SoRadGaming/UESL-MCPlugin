@@ -25,7 +25,7 @@ public class CommandTabCompleter implements TabCompleter {
         if(cmd.getName().equalsIgnoreCase("uesl")){
             ArrayList<String> completions = new ArrayList<>();
             if (args.length == 1) {
-                completions = new ArrayList<>(Arrays.asList("data", "help", "reload", "edit", "channel"));
+                completions = new ArrayList<>(Arrays.asList("data", "help", "reload", "edit"));
                 completions = getApplicableTabCompletes(args[0], completions);
             } else if (args.length == 2) {
                     if (args[0].equals("data") || args[0].equals("edit")) {
@@ -45,7 +45,7 @@ public class CommandTabCompleter implements TabCompleter {
                         return null;
                     }
                 } else if (args.length == 4) {
-                    if (args[2].contains((CharSequence) parkour)) { //Issues with this line
+                    if (parkour.contains(args[2])) {
                         completions = new ArrayList<>(Arrays.asList("true", "false"));
                         completions = getApplicableTabCompletes(args[3], completions);
                     } else {

@@ -98,10 +98,11 @@ public class UESLCommand implements CommandExecutor {
 
                 for (String name : parkour) {
                     if (args[2].equals(name)) {
+                        String parkour_name = plugin.parkour.getString(name + ".parkour_name");
                         String data_name = plugin.parkour.getString(name + ".data_name");
                         plugin.data.set(player.getUniqueId().toString() + "." + data_name, TorF);
                         plugin.saveFile();
-                        player.sendMessage("Set " + ChatColor.BLUE + player.getName() + " " + ChatColor.DARK_GREEN + "." + data_name + " " + ChatColor.YELLOW + TorF);
+                        player.sendMessage("Set " + ChatColor.BLUE + player.getName() + " " + ChatColor.DARK_GREEN + parkour_name + " " + ChatColor.YELLOW + TorF);
                     }
                 }
             } else {
