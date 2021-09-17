@@ -54,6 +54,7 @@ public class Parkour implements Listener {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "eco give " + p + " " + money_prize);
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "You have won " + uesl_coin_prize + " &eUESL Points&r for completing " + parkour_name + "!"));
             } else if (regionName.equals(region_finish_name)) {
+                player.sendMessage("You completed " + parkour_name);
                 player.sendMessage("You have already claimed this prize!");
             }
         }
