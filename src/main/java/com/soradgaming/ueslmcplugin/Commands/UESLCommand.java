@@ -102,9 +102,6 @@ public class UESLCommand implements CommandExecutor {
                         plugin.data.set(player.getUniqueId().toString() + "." + data_name, TorF);
                         plugin.saveFile();
                         player.sendMessage("Set " + ChatColor.BLUE + player.getName() + " " + ChatColor.DARK_GREEN + "." + data_name + " " + ChatColor.YELLOW + TorF);
-                    } else {
-                        sender.sendMessage(ChatColor.RED + "Invalid Data Set");
-                        return true;
                     }
                 }
             } else {

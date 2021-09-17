@@ -45,7 +45,7 @@ public class CommandTabCompleter implements TabCompleter {
                         return null;
                     }
                 } else if (args.length == 4) {
-                    if (args[2].contains(parkour.toString())) {
+                    if (args[2].contains((CharSequence) parkour)) { //Issues with this line
                         completions = new ArrayList<>(Arrays.asList("true", "false"));
                         completions = getApplicableTabCompletes(args[3], completions);
                     } else {
