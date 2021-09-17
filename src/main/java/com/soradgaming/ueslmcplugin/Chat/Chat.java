@@ -94,6 +94,12 @@ public class Chat implements Listener {
         if (plugin.getConfig().getBoolean("Chat_Changer")) {
             if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
                 changeChannel(player, "global");
+
+                //Disabled World Chat Works Regardless
+                List<String> world_name = plugin.channel.getStringList("disableworld" + ".world_name");
+                if (world_name.contains(worldTo)) {
+                    changeChannel(player, "disableworld");
+                }
             } else {
                 for (int i = 0; wcn >= i + 1; i++) {
                     String name = worldChannels.get(i);
@@ -122,6 +128,12 @@ public class Chat implements Listener {
         if (plugin.getConfig().getBoolean("Chat_Changer")) {
             if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
                 changeChannel(player, "global");
+
+                //Disabled Region Chat Works Regardless
+                List<String> region_name = plugin.channel.getStringList("disableregion" + ".region_name");
+                if (region_name.contains(regionName)) {
+                    changeChannel(player, "disableregion");
+                }
             } else {
                 for (int i = 0; rcn >= i + 1; i++) {
                     String name = regionChannels.get(i);
@@ -152,6 +164,26 @@ public class Chat implements Listener {
             if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
                 for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
                     changeChannel(onlinePlayers, "global");
+                    Player player = onlinePlayers.getPlayer();
+                    String worldTo = onlinePlayers.getWorld().getName();
+                    Location loc = BukkitAdapter.adapt(onlinePlayers.getLocation());
+                    RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+                    RegionQuery query = container.createQuery();
+                    ApplicableRegionSet set = query.getApplicableRegions(loc);
+                    List<String> world_name = plugin.channel.getStringList("disableworld" + ".world_name");
+                    List<String> region_name = plugin.channel.getStringList("disableregion" + ".region_name");
+
+                    //Disabled World Chat Works Regardless
+                    if (world_name.contains(worldTo)) {
+                        changeChannel(player, "disableworld");
+                    }
+                    //Disabled Region Chat Works Regardless
+                    for (ProtectedRegion region : set) {
+                        String regionName = region.getId();
+                        if (region_name.contains(regionName)) {
+                            changeChannel(player, "disableregion");
+                        }
+                    }
                 }
             } else if (playerCount >= plugin.getConfig().getInt("Chat_Change_Value") && playerCount - 1 <= plugin.getConfig().getInt("Chat_Change_Value")) {
                 Bukkit.broadcastMessage("Server Chat Changing to Bungee");
@@ -223,6 +255,26 @@ public class Chat implements Listener {
             if (playerCount < plugin.getConfig().getInt("Chat_Change_Value")) {
                 for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
                     changeChannel(onlinePlayers, "global");
+                    Player player = onlinePlayers.getPlayer();
+                    String worldTo = onlinePlayers.getWorld().getName();
+                    Location loc = BukkitAdapter.adapt(onlinePlayers.getLocation());
+                    RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
+                    RegionQuery query = container.createQuery();
+                    ApplicableRegionSet set = query.getApplicableRegions(loc);
+                    List<String> world_name = plugin.channel.getStringList("disableworld" + ".world_name");
+                    List<String> region_name = plugin.channel.getStringList("disableregion" + ".region_name");
+
+                    //Disabled World Chat Works Regardless
+                    if (world_name.contains(worldTo)) {
+                        changeChannel(player, "disableworld");
+                    }
+                    //Disabled Region Chat Works Regardless
+                    for (ProtectedRegion region : set) {
+                        String regionName = region.getId();
+                        if (region_name.contains(regionName)) {
+                            changeChannel(player, "disableregion");
+                        }
+                    }
                 }
             } else if (playerCount >= plugin.getConfig().getInt("Chat_Change_Value") && playerCount - 1 <= plugin.getConfig().getInt("Chat_Change_Value")) {
                 for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
