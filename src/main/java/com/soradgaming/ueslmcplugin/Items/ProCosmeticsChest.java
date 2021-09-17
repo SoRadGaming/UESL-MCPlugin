@@ -43,7 +43,7 @@ public class ProCosmeticsChest implements Listener {
                 }
             }
             catch (Exception var3_3) {
-                System.out.println("[UESL-MCPlugin] A open-chest error has been thrown. Please contact SoRadGaming if the problem persist.");
+                plugin.getLogger().info("[UESL-MCPlugin] A open-chest error has been thrown. Please contact SoRadGaming if the problem persist.");
             }
         }
     }
@@ -76,7 +76,7 @@ public class ProCosmeticsChest implements Listener {
             if (!p.getInventory().contains(chest)) {
                 p.getInventory().setHeldItemSlot(0);
                 p.getInventory().setItem(8, chest);
-                System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
+                plugin.getLogger().info("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
             }
         }
     }
@@ -92,13 +92,13 @@ public class ProCosmeticsChest implements Listener {
 
         if (currentRegionsNames.contains("minigames") || world.equals("Lobbyy") && plugin.getConfig().getBoolean("Procosmetic_Chest")) {
             if (!p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
-                System.out.println("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
+                plugin.getLogger().info("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
                 p.getInventory().setHeldItemSlot(0);
                 p.getInventory().setItem(8, this.Chest());
             }
         } else if (previousRegionsNames.contains("minigames") && world.equals("Lobbyy")) {
             if (p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest) && plugin.getConfig().getBoolean("Procosmetic_Chest")) {
-                System.out.println("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
+                plugin.getLogger().info("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
                 p.getInventory().setHeldItemSlot(0);
                 p.getInventory().removeItem(chest);
             }
