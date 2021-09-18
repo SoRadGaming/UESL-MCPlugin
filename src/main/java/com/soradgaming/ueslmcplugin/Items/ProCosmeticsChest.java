@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -97,6 +98,28 @@ public class ProCosmeticsChest implements Listener {
                 p.getInventory().setItem(8, this.Chest());
             }
         } else if (previousRegionsNames.contains("minigames") && world.equals("Lobbyy")) {
+            if (p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest) && plugin.getConfig().getBoolean("Procosmetic_Chest")) {
+                plugin.getLogger().info("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
+                p.getInventory().setHeldItemSlot(0);
+                p.getInventory().removeItem(chest);
+            }
+        }
+    }
+    //Chest World
+    @EventHandler
+    public void OnWorldChange(PlayerChangedWorldEvent event) {
+        Player p = event.getPlayer();
+        ItemStack chest = this.Chest();
+        String worldTo = p.getWorld().getName();
+        String worldFrom = event.getFrom().getName();
+
+        if ((worldTo.equals("World") || worldTo.equals("Lobbyy")) && plugin.getConfig().getBoolean("Procosmetic_Chest")) {
+            if (!p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest)) {
+                plugin.getLogger().info("[UESL-MCPlugin] " + p.getName() + " does not have a chest. Giving it now.");
+                p.getInventory().setHeldItemSlot(0);
+                p.getInventory().setItem(8, this.Chest());
+            }
+        } else if (worldFrom.equals("Lobbyy") && (!worldTo.equals("World")) || (worldFrom.equals("World") && !worldTo.equals("Lobbyy"))) {
             if (p.getInventory().contains(this.Chest()) && !p.getInventory().getItemInOffHand().isSimilar(chest) && plugin.getConfig().getBoolean("Procosmetic_Chest")) {
                 plugin.getLogger().info("[UESL-MCPlugin] " + p.getName() + " has entered a non-chest region. Removing chest or making it invalid now.");
                 p.getInventory().setHeldItemSlot(0);
