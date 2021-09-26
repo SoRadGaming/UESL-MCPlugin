@@ -1,5 +1,5 @@
 # UESL-MCPlugin
-This Plugin Manages the Per World/Region Chat, has event once in CE and patches other plugins bugs.
+This Plugin Manages the Per World/Region Chat, Cosmetic Items and Parkour Database.
 
 Commands:
 - /uesl
